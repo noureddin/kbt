@@ -292,16 +292,42 @@ if (el_write.selectionStart) {
 }
 }
 
+const left_side = {
+  Backquote: true,
+    KeyQ: true,  KeyW: true,  KeyE: true,  KeyR: true,  KeyT: true,
+     KeyA: true,  KeyS: true,  KeyD: true,  KeyF: true,  KeyG: true,
+      KeyZ: true,  KeyX: true,  KeyC: true,  KeyV: true,  KeyB: true,
+}
+
+let prev_shift
+
 el_write.addEventListener('keydown', (ev) => {
   const emulate = Qid('emu').checked
-  if (ev.key === 'Enter') {
+  if (ev.key === 'Shift') {
+    prev_shift = ev.code.substr(5, 1)  // 'L' or 'R'
+  }
+  else if (ev.key === 'Enter') {
     alert(TXT_ENTER_ALERT)
   }
   else if (emulate && !ev.ctrlKey && !ev.altKey) {
     const k = mapping[ev.code]
     if (k) {
       ev.preventDefault()
-      insert_in_field(k[+ev.shiftKey])
+      if (ev.shiftKey) {
+        const onleft = left_side[ev.code]
+        if (onleft && prev_shift === 'L') {
+          alert(BAD_LEFT_SHIFT_ALERT)
+        }
+        else if (!onleft && prev_shift === 'R') {
+          alert(BAD_RIGHT_SHIFT_ALERT)
+        }
+        else {
+          insert_in_field(k[1])
+        }
+      }
+      else {
+        insert_in_field(k[0])
+      }
       el_write.oninput(ev)
     }
   }

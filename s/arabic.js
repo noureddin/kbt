@@ -11,6 +11,9 @@ const lessons_ordinal = ['الأول', 'الثاني', 'الثالث', 'الرا
 
 const TXT_ENTER_ALERT = 'اضغط زر المسافة بعد كل كلمة، فهو أسرع، وهو المعتاد'
 
+const BAD_LEFT_SHIFT_ALERT = 'استخدم زر العالي الأيمن مع الأزرار التي على يسار اللوحة'
+const BAD_RIGHT_SHIFT_ALERT = 'استخدم زر العالي الأيسر مع الأزرار التي على يمين اللوحة'
+
 // Round to arbitrary precision
 const R = (e,p) => p ? Math.round(e * 10**p) / 10**p : Math.round(e)
 
