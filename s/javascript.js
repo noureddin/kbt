@@ -263,10 +263,12 @@ function play (lesson) {
         next_word(el_current) || show_finish()
       }
       else if (input) {  // only if there is a value, not empty; e.g. by pressing space
-        say('hi')
         mark(el_current, 'wrong-word')
         explode_word(el_current)
         wrong_chars += 1
+      }
+      else {  // if empty; ie pressed space before typing anything
+        explode_word(el_current)
       }
       el_write.value = ''
     }
@@ -338,6 +340,7 @@ window.addEventListener('resize', () => {
 })
 
 window.addEventListener('load', () => {
+  el_write.value = ''
   play(+window.location.hash.slice(1) || +window.location.search.slice(1) || 1)
 })
 
