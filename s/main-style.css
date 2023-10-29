@@ -38,8 +38,12 @@ a:active { color: var(--a-active) }
     text-align: right;
 }
 
-p.warning {
-    font-size: small;
+center > p.note {  /* "English is below" note */
+  margin-top: 2em;
+}
+
+p.note {
+    font-size: 65%;
 }
 
 hr {

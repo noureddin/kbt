@@ -8,7 +8,7 @@ arak/index.html: .p/* arak/.?? s/ar-words.js
 
 dv-ar: dv-ar/index.html
 dv-ar/index.html: .p/* dv-ar/.?? s/ar-words.js
-	$(PL) .p/mkkeyboard.pl dv-ar/.kb .p/html.html | $(PL) .p/mklessons.pl dv-ar/.ls | $(PL) .p/applyini.pl .p/arabic.ini keyboard=dv-ar title='لوحة دڤوراك العربية الصوتية (تجريبي) — مدرب لوحات المفاتيح' > dv-ar/index.html
+	$(PL) .p/mkkeyboard.pl dv-ar/.kb .p/html.html | $(PL) .p/mklessons.pl dv-ar/.ls | $(PL) .p/applyini.pl .p/arabic.ini keyboard=dv-ar title='لوحة دڤوراك العربية الصوتية (تجريبية) — مدرب لوحات المفاتيح' > dv-ar/index.html
 
 ibm-ar: ibm-ar/index.html
 ibm-ar/index.html: .p/* ibm-ar/.?? s/ar-words.js
