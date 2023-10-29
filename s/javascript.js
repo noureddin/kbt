@@ -281,17 +281,17 @@ function play (lesson) {
   el_write.oninput = (ev) => check_input(ev.data === ' ')
 }
 
-function insert_in_field (ch) {
-if (!ch) { return }
-// htts://stackoverflow.com/a/11077016 and comments, with modifications
-if (el_write.selectionStart) {
-  const before = el_write.value.substring(0, el_write.selectionStart)
-  const after  = el_write.value.substring(el_write.selectionStart, el_write.value.length)
-  el_write.value = before + ch + after
-  el_write.selectionStart = el_write.selectionEnd = el_write.selectionStart + ch.length
-} else {
-  el_write.value += ch
-}
+function insert_in_field (el, ch) {
+  if (!ch) { return }
+  // htts://stackoverflow.com/a/11077016 and comments, with modifications
+  if (el.selectionStart) {
+    const before = el.value.substring(0, el.selectionStart)
+    const after  = el.value.substring(el.selectionStart, el.value.length)
+    el.value = before + ch + after
+    el.selectionStart = el.selectionEnd = el.selectionStart + ch.length
+  } else {
+    el.value += ch
+  }
 }
 
 const left_side = {
@@ -324,11 +324,11 @@ el_write.addEventListener('keydown', (ev) => {
           alert(BAD_RIGHT_SHIFT_ALERT)
         }
         else {
-          insert_in_field(k[1])
+          insert_in_field(el_write, k[1])
         }
       }
       else {
-        insert_in_field(k[0])
+        insert_in_field(el_write, k[0])
       }
       el_write.oninput(ev)
     }
