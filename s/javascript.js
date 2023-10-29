@@ -208,8 +208,8 @@ function finish_msg(sec, len, wrong_chars, lesson) {
 function play (lesson) {
   if (!lesson || lesson < 1) { lesson = 1 }
   if (lesson >= LETTERS.length) { lesson = LETTERS.length }
-  history.pushState("", document.title, window.location.pathname) // remove search; https://stackoverflow.com/a/5298684
   window.location.hash = lesson
+  window.location.search = ''
   el_lesson.value = lesson
   set_words(lesson)
   unmark(el_body, 'finish')
