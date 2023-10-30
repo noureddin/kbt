@@ -6,7 +6,7 @@ $vowels_2 = '\N{ARABIC FATHATAN}\N{ARABIC KASRATAN}\N{ARABIC DAMMATAN}\N{ARABIC 
 $vowels_all = $vowels_1 + $vowels_2
 
 1 > $homekeys               > ١) أحرف الارتكاز الثمانية
-2 > $homerow                > ٢) صف الارتكاز بالكامل
+2 > $homerow                > ٢) صف الارتكاز بالكامل بغير العالي
 3 > $homerow+$$             > ٣) صف الارتكاز + ج ك أ د س ق ع ب
 4 > $homerow+$$             > ٤) صف الارتكاز + ط ز ى ذ ث ص ح ش
 5 > $homerow+$$             > ٥) صف الارتكاز + ظ ؤ ء ئ ة آ خ ض غ
