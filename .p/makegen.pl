@@ -49,7 +49,9 @@ for my $ar (@ar) {
   say pipeline
     ['mkkeyboard' => "$ar/.kb", ".p/html.html"],
     ['mklessons' => "$ar/.ls"],
+    ['rmcomments'],
     ['applyini' => ".p/arabic.ini", "keyboard=$ar", "title='$title'"],
+    ['hash-for-cache' => $ar],
       "$ar/index.html";
 }
 
@@ -60,14 +62,18 @@ for my $en (@en) {
   say pipeline
     ['mkkeyboard' => "$en/.kb", ".p/html.html"],
     ['mklessons' => "$en/.ls"],
+    ['rmcomments'],
     ['flipdirection'],  # also changes loading style.css to ltr-style.css
     ['applyini' => ".p/english.ini", "keyboard=$en", "title='$title'"],
+    ['hash-for-cache' => $en],
       "$en/index.html";
 }
 
 say q{index.html: .p/home.html .p/mkhome.pl */.info};
 say pipeline
   [mkhome => '.p/home.html'],
+  ['rmcomments'],
+  ['hash-for-cache' => '.'],
     'index.html';
 
 say q{s/ltr-style.css: s/style.css};

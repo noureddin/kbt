@@ -3,7 +3,7 @@
 <head>
  <meta charset="utf-8">
  <title>${title}</title>
- <link rel="stylesheet" type="text/css" href="../s/style.css">
+ <link rel="stylesheet" type="text/css" href=".s/style.css">
 </head>
 <body>
   <center>
@@ -20,11 +20,19 @@
     <pre id="keyboard"></pre>
   </center>
   <script id="lessons_js"></script>
-  <script src="../s/${words_js}"></script>
-  <script src="../s/${language_js}"></script>
-  <script src="../s/mapping.js"></script>
-  <script src="../${keyboard}/mapping.js"></script>
-  <script src="../s/javascript.js"></script>
-  <!-- <script src="./test.js"></script> -->
+  <script src=".s/${words_js}"></script>
+  <script src=".s/${language_js}"></script>
+  <script src=".mapping.js"></script>
+  <script src=".s/javascript.js"></script>
+  <!-- <script src="../s/test.js"></script> -->
 </body>
 </html>
+<!----
+  script srcs and link hrefs (JS and CSS) start with:
+  either `.s/` for the common (`s/*`) resources
+  or `.` (without a path separator in the name) for the keyboard-specific files.
+  They are changed to the proper URI with their hash as a querystring,
+  to cache-bust them on modification.
+  This is done by the preprocessor `.p/hash-for-cache.pl`.
+  HTML comments with four hyphens are removed early by `.p/rmcomments.pl`.
+---->

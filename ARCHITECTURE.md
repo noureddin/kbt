@@ -6,13 +6,17 @@
 ## Processing (`.p/`)
 
 - `applyini.pl`: applies the localization to the html.
-- `flipdirection.pl`: flips the text direction of html or css.
-- `mkkeyboard.pl`
-- `mklessons.pl`
 - `arabic.ini`: Arabic localization for `html.html`.
 - `english.ini`: English localization for `html.html`.
-- `html.html`: our html template.
+- `flipdirection.pl`: flips the text direction of html or css.
+- `hash-for-cache.pl`: adds a unique querystring to static resources for cache-busting on change.
+- `home.html`: homepage template.
+- `html.html`: html template for the keyboard lessons.
 - `makegen.pl`: call it as `.p/makegen.pl > Makefile` when you add or remove a keyboard.
+- `mkhome.pl`: generates the homepage.
+- `mkkeyboard.pl`
+- `mklessons.pl`
+- `rmcomments.pl`: removes four-hyphen html comments (ie, those starting with `<!----`).
 
 ## Static (`s/`)
 
@@ -25,7 +29,7 @@
 - `test.js`
 - `KawkabMono-Bold-subset-scaled.woff2`, and
 - `KawkabMono-Regular-subset-scaled.woff2`:
-  Beautiful monowidth Arabic font; <https://makkuk.com/kawkab-mono/>; OFL-1.1; all non-Arabic glyphs removed; and scaled 75%.
+  Beautiful monowidth Arabic font; <https://makkuk.com/kawkab-mono/>; OFL-1.1; scaled 75%, and all non-Arabic glyphs removed.
 
 ### Generated statics:
 
