@@ -244,6 +244,12 @@ a:active { color: var(--a-active) }
     left: 0.15em;
 }
 
+#keyboard > span > sup.submarks {
+    font-size: 125%;
+    left: 0.15em;
+    top: -1.25em;
+}
+
 #keyboard > span > span      { color: var(--fg-lo) }
 #keyboard > span > span.hi   { color: var(--fg-hi) }
 #keyboard > span > span.hihi { color: var(--fg-hi-hi) }

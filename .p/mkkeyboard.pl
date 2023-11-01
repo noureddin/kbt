@@ -12,7 +12,8 @@ $kb =~ s,(?:^|(?<=\s))([A-Z]+)(?:$|(?=\s)),<span><span>$1</span></span>,g;
 $kb =~ s,(?:^|(?<=\s))(\S)(\S)(?:$|(?=\s)),<span><span>$1</span><sup>$2</sup></span>,g;
 $kb =~ s,(?:^|(?<=\s))(\S)(?:$|(?=\s)),<span><span>$1</span></span>,g;
 $kb =~ s,\N{ARABIC LETTER HEH},$&\N{ZWJ},;
-$kb =~ s,<sup>([ًٌٍَُِّْ])</sup>,<sup class="marks">&nbsp;$1</sup>,g;
+$kb =~ s,<sup>([\x{64D}\x{650}])</sup>,<sup class="submarks">&nbsp;$1</sup>,g;
+$kb =~ s,<sup>([\x{64B}-\x{652}])</sup>,<sup class="marks">&nbsp;$1</sup>,g;
 
 while (<>) {
   if (/id="keyboard"/) { s/></>$kb</g }
