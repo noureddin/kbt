@@ -45,7 +45,7 @@ sub pipeline {
 for my $ar (@ar) {
   my $title = read_name($ar).' — مدرب لوحات المفاتيح';
   say "$ar: $ar/index.html";
-  say "$ar/index.html: .p/* $ar/.?? $ar/mapping.js s/ar-words.js";
+  say "$ar/index.html: .p/* $ar/.?? $ar/mapping.js s/ar-words.js s/*";
   say pipeline
     ['mkkeyboard' => "$ar/.kb", ".p/html.html"],
     ['mklessons' => "$ar/.ls"],
@@ -58,7 +58,7 @@ for my $ar (@ar) {
 for my $en (@en) {
   my $title = read_name($en).' — Keyboard Trainer';
   say "$en: $en/index.html";
-  say "$en/index.html: .p/* $en/.?? $en/mapping.js s/en-words.js s/ltr-style.css";
+  say "$en/index.html: .p/* $en/.?? $en/mapping.js s/en-words.js s/ltr-style.css s/*";
   say pipeline
     ['mkkeyboard' => "$en/.kb", ".p/html.html"],
     ['mklessons' => "$en/.ls"],
@@ -69,7 +69,7 @@ for my $en (@en) {
       "$en/index.html";
 }
 
-say q{index.html: .p/home.html .p/mkhome.pl */.info};
+say q{index.html: .p/home.html .p/mkhome.pl s/* */.info};
 say pipeline
   [mkhome => '.p/home.html'],
   ['rmcomments'],

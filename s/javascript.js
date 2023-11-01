@@ -283,15 +283,16 @@ function play (lesson) {
 
 function insert_in_field (el, ch) {
   if (!ch) { return }
-  // htts://stackoverflow.com/a/11077016 and comments, with modifications
-  if (el.selectionStart) {
-    const before = el.value.substring(0, el.selectionStart)
-    const after  = el.value.substring(el.selectionStart, el.value.length)
-    el.value = before + ch + after
-    el.selectionStart = el.selectionEnd = el.selectionStart + ch.length
-  } else {
-    el.value += ch
-  }
+  // https://stackoverflow.com/a/11077016 and comments, with modifications
+  const st = el.selectionStart
+  const en = el.selectionEnd
+  //
+  const before = el.value.substring(0, st)
+  const after  = el.value.substring(en, el.value.length)
+  //
+  el.value = before + ch + after
+  // restore cursor position
+  el.selectionStart = el.selectionEnd = st + ch.length
 }
 
 const left_side = {
