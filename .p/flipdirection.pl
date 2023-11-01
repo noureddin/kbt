@@ -8,6 +8,7 @@ binmode STDOUT, ':encoding(UTF-8)';
 if (@ARGV == 0 || $ARGV[0] =~ /\.html$/) {  # no args => assume html
   while (<>) {
     s/dir="rtl"/dir="ltr"/g;
+    s,(<link\b[^<>]+\bhref="[^"]+/)(style[.]css),$1ltr-$2,g;
     print;
   }
 }
