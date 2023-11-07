@@ -1,35 +1,7 @@
 <!doctype html>
-<html dir="ltr">
-<head>
- <meta charset="utf-8">
- <title>Dvorak (DSK) — Keyboard Trainer</title>
- <link rel="stylesheet" type="text/css" href="../s/ltr-style.css?h=QPcihdjHdSwtxMQ5mICOZhjSGJI">
-</head>
-<body>
-  <center>
-    <div id="header">
-      <span><label for="lesson">Lesson:&ensp;</label><select id="lesson" onchange="play(this.value)"><option value="1" selected>1) The 8 Home Keys</option><option value="2">2) The Entire Homerow</option><option value="3">3) The Entire Homerow + C R F J V</option><option value="4">4) The Entire Homerow + G L Y K B W</option><option value="5">5) The Entire Homerow + P Q X M Z '</option><option value="6">6) All Basic Latin Letters and Apostrophe</option></select></span>
-      <span>
-      <span><input type="checkbox" id="emu" title="Emulate this keyboard so you can train without changing keyboards" checked><label for="emu" title="Emulate this keyboard so you can train without changing keyboards">&ensp;Emulate</label></span>
-      <span id="done">Done</span>
-      <span id="count"><span id="completed">00</span> of <span id="allwords">100</span></span>
-      </span>
-    </div>
-    <div id="screen"></div>
-    <input id="write">
-    <pre id="keyboard">                            <span><span>BS</span></span>
+<html dir="ltr"><head><meta charset="utf-8"><title>Dvorak (DSK) — Keyboard Trainer</title><link rel="stylesheet" type="text/css" href="../s/ltr-style.css?h=pt4WVwIa0mFMJCns3deRL1Hoxlw"></head><body><center><div id="header"><span><label for="lesson">Lesson:&ensp;</label><select id="lesson" onchange="play(this.value)"><option value="1" selected>1) The 8 Home Keys</option><option value="2">2) The Entire Homerow</option><option value="3">3) The Entire Homerow + C R F J V</option><option value="4">4) The Entire Homerow + G L Y K B W</option><option value="5">5) The Entire Homerow + P Q X M Z '</option><option value="6">6) All Basic Latin Letters and Apostrophe</option></select></span><span><span id="emus"><input type="checkbox" id="emu" title="Emulate this keyboard so you can train without changing keyboards" checked><label for="emu" title="Emulate this keyboard so you can train without changing keyboards">&ensp;Emulate</label></span><span id="done">Done</span><span id="count"><span id="completed">00</span> of <span id="allwords">100</span></span></span></div><div id="screen"></div><input id="write"><pre id="keyboard">                            <span><span>BS</span></span>
 <span><span>'</span></span> <span><span>,</span></span> <span><span>.</span></span> <span><span>p</span></span> <span><span>y</span></span> <span><span>f</span></span> <span><span>g</span></span> <span><span>c</span></span> <span><span>r</span></span> <span><span>l</span></span> <span><span>/</span></span> <span><span>[</span></span> <span><span>]</span></span>
  <span><span>a</span></span> <span><span>o</span></span> <span><span>e</span></span> <span><span>u</span></span> <span><span>i</span></span> <span><span>d</span></span> <span><span>h</span></span> <span><span>t</span></span> <span><span>n</span></span> <span><span>s</span></span> <span><span>-</span></span>  
   <span><span>;</span></span> <span><span>q</span></span> <span><span>j</span></span> <span><span>k</span></span> <span><span>x</span></span> <span><span>b</span></span> <span><span>m</span></span> <span><span>w</span></span> <span><span>v</span></span> <span><span>z</span></span>  
 <span><span>SPACE</span></span>
-</pre>
-  </center>
-  <script id="lessons_js">var LETTERS = ['aoeuhtns','aoeuhtnsid','aoeuhtnsidcrfjv','aoeuhtnsidglykbw','aoeuhtnsidpqxmz\'','\'pyfgcrlaoeuidhtnsqjkxbmwvz',]</script>
-  <script src="../s/en-words.js?h=ClUTcdww9wGzh_C8wBCDFvkTaOE"></script>
-  <script src="../s/english.js?h=l1zyu3CyGXpvndECiMcVDQtj6cQ"></script>
-  <script src="mapping.js?h=2kf0p2E4eA6qGZ-y5whllFK2Mvk"></script>
-  <script src="../s/javascript.js?h=wpyAfN15Ou307X_fretGaONSozs"></script>
-  <!-- <script src="../s/test.js"></script> -->
-</body>
-</html>
-
+</pre></center><script id="lessons_js">var LETTERS=['aoeuhtns','aoeuhtnsid','aoeuhtnsidcrfjv','aoeuhtnsidglykbw','aoeuhtnsidpqxmz\'','\'pyfgcrlaoeuidhtnsqjkxbmwvz',]</script><script src="../s/en-words.js?h=R2rK0yScutroHZlH_ZHj6YWHLj0">var LETTERS=['aoeuhtns','aoeuhtnsid','aoeuhtnsidcrfjv','aoeuhtnsidglykbw','aoeuhtnsidpqxmz\'','\'pyfgcrlaoeuidhtnsqjkxbmwvz',]</script><script src="../s/english.js?h=l1zyu3CyGXpvndECiMcVDQtj6cQ">var LETTERS=['aoeuhtns','aoeuhtnsid','aoeuhtnsidcrfjv','aoeuhtnsidglykbw','aoeuhtnsidpqxmz\'','\'pyfgcrlaoeuidhtnsqjkxbmwvz',]</script><script>var mapping={Backquote:['`','~'],Minus:['[','{'],Equal:[']','}'],KeyQ:["'",'"'],KeyW:[',','<'],KeyE:['.','>'],KeyR:['p','P'],KeyT:['y','Y'],KeyY:['f','F'],KeyU:['g','G'],KeyI:['c','C'],KeyO:['r','R'],KeyP:['l','L'],BracketLeft:['/','?'],BracketRight:['=','+'],KeyA:['a','A'],KeyS:['o','O'],KeyD:['e','E'],KeyF:['u','U'],KeyG:['i','I'],KeyH:['d','D'],KeyJ:['h','H'],KeyK:['t','T'],KeyL:['n','N'],Semicolon:['s','S'],Quote:['-','_'],KeyZ:[';',':'],KeyX:['q','Q'],KeyC:['j','J'],KeyV:['k','K'],KeyB:['x','X'],KeyN:['b','B'],KeyM:['m','M'],Comma:['w','W'],Period:['v','V'],Slash:['z','Z']}var LETTERS=['aoeuhtns','aoeuhtnsid','aoeuhtnsidcrfjv','aoeuhtnsidglykbw','aoeuhtnsidpqxmz\'','\'pyfgcrlaoeuidhtnsqjkxbmwvz',]</script><script src="../s/javascript.js?h=wpyAfN15Ou307X_fretGaONSozs">var LETTERS=['aoeuhtns','aoeuhtnsid','aoeuhtnsidcrfjv','aoeuhtnsidglykbw','aoeuhtnsidpqxmz\'','\'pyfgcrlaoeuidhtnsqjkxbmwvz',]</script></body></html>

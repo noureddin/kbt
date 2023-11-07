@@ -1,4 +1,4 @@
-const mapping = {
+var mapping = {
   Backquote: ['`', '~'],
   Minus: ['[', '{'],
   Equal: [']', '}'],

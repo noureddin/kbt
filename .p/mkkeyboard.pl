@@ -16,7 +16,7 @@ $kb =~ s,<sup>([\x{64D}\x{650}])</sup>,<sup class="submarks">&nbsp;$1</sup>,g;
 $kb =~ s,<sup>([\x{64B}-\x{652}])</sup>,<sup class="marks">&nbsp;$1</sup>,g;
 
 while (<>) {
-  if (/id="keyboard"/) { s/></>$kb</g }
+  s/<<keyboard>>/$kb/;
   print;
 }
 

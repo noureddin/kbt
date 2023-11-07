@@ -45,27 +45,31 @@ sub pipeline {
 for my $ar (@ar) {
   my $title = read_name($ar).' — مدرب لوحات المفاتيح';
   say "$ar: $ar/index.html";
-  say "$ar/index.html: .p/* $ar/.?? $ar/mapping.js s/ar-words.js s/*";
+  say "$ar/index.html: .p/* $ar/.?? $ar/.mapping.min.js s/ar-words.js s/style.min.css s/*";
   say pipeline
-    ['mkkeyboard' => "$ar/.kb", ".p/html.html"],
+    ['minifier' => 'html', ".p/html.html"],
+    ['mkkeyboard' => "$ar/.kb"],
     ['mklessons' => "$ar/.ls"],
     ['rmcomments'],
     ['applyini' => ".p/arabic.ini", "keyboard=$ar", "title='$title'"],
     ['hash-for-cache' => $ar],
+    ['mapping' => $ar],
       "$ar/index.html";
 }
 
 for my $en (@en) {
   my $title = read_name($en).' — Keyboard Trainer';
   say "$en: $en/index.html";
-  say "$en/index.html: .p/* $en/.?? $en/mapping.js s/en-words.js s/ltr-style.css s/*";
+  say "$en/index.html: .p/* $en/.?? $en/.mapping.min.js s/en-words.js s/ltr-style.min.css s/*";
   say pipeline
-    ['mkkeyboard' => "$en/.kb", ".p/html.html"],
+    ['minifier' => 'html', ".p/html.html"],
+    ['mkkeyboard' => "$en/.kb"],
     ['mklessons' => "$en/.ls"],
     ['rmcomments'],
-    ['flipdirection'],  # also changes loading style.css to ltr-style.css
+    ['flipdirection'],  # also changes loading style.min.css to ltr-style.min.css
     ['applyini' => ".p/english.ini", "keyboard=$en", "title='$title'"],
     ['hash-for-cache' => $en],
+    ['mapping' => $en],
       "$en/index.html";
 }
 
@@ -74,21 +78,28 @@ say pipeline
   [mkhome => '.p/home.html'],
   ['rmcomments'],
   ['hash-for-cache' => '.'],
+  ['minifier' => 'html'],
     'index.html';
 
 say q{s/ltr-style.css: s/style.css};
 say pipeline [flipdirection => 's/style.css'], 's/ltr-style.css';
 
+say q{s/%.min.css: s/%.css};
+say pipeline [minifier => 'css', '"$<"'], '"$@"';
+
+say q{%/.mapping.min.js: %/.mapping.js};
+say pipeline [minifier => 'js', '"$<"'], '"$@"';
+
 say q{s/ar-words.js:};
 say q{	# based on WikiSource Voweled Imalaai Quran Text};
 say q{	# # the 3rd s-cmd in the 1st sed to move the shadda before the other vowel, b/c wikisource always puts it after the vowel.};
 say q{	# sed 's/([0-9]\+)//g; s/ \+/\n/g; s/\(.\)ّ/ّ\1/g' quran | sort -u | grep -v ^$$ > voweled-imlaai-quran-words};
-say q{	<.w/voweled-imlaai-quran-words sed 's/^/"/; s/$$/",/' | sed -ne '1iconst FULL_WORDS = [' -e 'p;$$i]' > s/ar-words.js};
+say q{	<.w/voweled-imlaai-quran-words sed 's/^/"/; s/$$/",/' | sed -ne '1ivar FULL_WORDS=[' -e 'p;$$i]' | tr -d '\n' > s/ar-words.js};
 say q{};
 
 say q{s/en-words.js:};
 say q{	# based on XKCD Simple Writer Word List 0.2.1};
-say q{	<.w/xkcd-simple-writer-words sed 's/^/"/; s/$$/",/' | sed -ne '1iconst FULL_WORDS = [' -e 'p;$$i]' > s/en-words.js};
+say q{	<.w/xkcd-simple-writer-words sed 's/^/"/; s/$$/",/' | sed -ne '1ivar FULL_WORDS=[' -e 'p;$$i]' | tr -d '\n' > s/en-words.js};
 say q{};
 
 say q{real_clean: clean};
@@ -96,7 +107,7 @@ say q{	rm -rf s/en-words.js s/ar-words.js};
 say q{};
 
 say q{clean:};
-say q{	rm -rf s/ltr-style.css index.html } . join ' ', map { "$_/index.html" } @all;
+say q{	rm -rf s/ltr-style.css s/*style.min.css index.html */.mapping.min.js */index.html };
 say q{};
 
 say q{update:};

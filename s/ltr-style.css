@@ -45,18 +45,18 @@
 
 
 /* https://makkuk.com/kawkab-mono/; OFL-1.1; all non-Arabic glyphs removed; and scaled 75% */
-@font-face { font-family: "Kawkab Mono Fixed"; font-style: normal; font-weight: 400; src: url("KawkabMono-Regular-subset-scaled.woff2") format("woff2") }
-@font-face { font-family: "Kawkab Mono Fixed"; font-style: normal; font-weight: 700; src: url("KawkabMono-Bold-subset-scaled.woff2") format("woff2") }
+
+
 
 * {
-    font-family: "Kawkab Mono Fixed", "Liberation Mono", "Ubuntu Mono", monospace;
+    font-family:  "Liberation Mono", "Ubuntu Mono", monospace;
     font-size: 24pt;
     line-height: 2;
     scroll-behavior: smooth;
 }
 
 .finish #screen, .finish #screen *, label, select, #count {
-    font-family: "KacstOne", serif;
+    font-family:  serif;
 }
 
 sup { line-height: 4 }
@@ -182,6 +182,10 @@ label[for="emu"] {
     border-bottom: none;
     padding: 0.25em 0;
     overflow: hidden;  /* otherwise the height can be too short ¯\_(ツ)_/¯ */
+}
+
+#emus {
+    margin: 1em;
 }
 
 #screen {

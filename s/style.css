@@ -184,6 +184,10 @@ label[for="emu"] {
     overflow: hidden;  /* otherwise the height can be too short ¯\_(ツ)_/¯ */
 }
 
+#emus {
+    margin: 1em;
+}
+
 #screen {
     font-weight: bold;
     height: 8rem;

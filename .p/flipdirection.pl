@@ -15,6 +15,9 @@ if (@ARGV == 0 || $ARGV[0] =~ /\.html$/) {  # no args => assume html
 elsif ($ARGV[0] =~ /\.css$/) {
   while (<>) {
     s/(left)|(right)/$1? 'right' : 'left'/ge;
+    s/^\@font-face.*//g;
+    s/"Kawkab Mono Fixed",//g;
+    s/"KacstOne",//g;
     print;
   }
 }

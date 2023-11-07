@@ -49,7 +49,7 @@ sub get_this { my ($title) = @_;
 sub read_lessons { my ($lessonsfile) = @_;
   my %defs;
   my $html;
-  my $js = "var LETTERS = [";
+  my $js = "var LETTERS=[";
   my $i = 1;
   open my $input_lessons_fh, '<', $lessonsfile;
   while (<$input_lessons_fh>) {

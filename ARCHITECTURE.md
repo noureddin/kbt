@@ -57,7 +57,7 @@ The English words are based on XKCD Simple Writer Word List 0.2.1.
 - `.kb`: the layout itself.
 - `.ls`: the lessons in a custom language.
 - `.info`: some metadata; currently only the human-friendly name of the layout.
-- `mapping.js`: an object mapping `KeyboardEvent.code` to `[normalChar, shiftedChar]`, for emulation. See [`KeyboardEvent.code`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) and [Keyboard event code values](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_code_values) on MDN.
+- `.mapping.js`: an object mapping `KeyboardEvent.code` to `[normalChar, shiftedChar]`, for emulation. See [`KeyboardEvent.code`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) and [Keyboard event code values](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_code_values) on MDN.
 
 ## Hidden Keyboards (`.qwerty/`, `.mac-ar/`)
 
