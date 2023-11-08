@@ -47,9 +47,9 @@
 
 The words.
 
-The Arabic words are based on WikiSource Voweled Imalaai Quran Text.
+The Arabic words are based on <a href="https://ar.wikisource.org/wiki/القرآن_الكريم_(بالرسم_الإملائي)/النص_المشكول">WikiSource Voweled Imalaai Quran Text</a>
 
-The English words are based on XKCD Simple Writer Word List 0.2.1.
+The English words are based on [XKCD Simple Writer Word List 0.2.1](https://xkcd.com/simplewriter/).
 
 ## Keyboards (`arak/`, `dvorak/`, etc)
 
