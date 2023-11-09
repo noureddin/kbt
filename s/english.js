@@ -13,11 +13,11 @@ const BAD_LEFT_SHIFT_ALERT = 'Use the right-side Shift with keys on the left sid
 const BAD_RIGHT_SHIFT_ALERT = 'Use the left-side Shift with keys on the right side of the keyboard'
 
 // Round to arbitrary precision
-const R = (e,p) => p? Math.round(e * 10**p) / 10**p : Math.round(e)
+const round_int = (e,p) => p? Math.round(e * 10**p) / 10**p : Math.round(e)
 
-const A = (n) => n.toString()
-const D = (n) => +n
-const S = (n, ws) => A(n) + ' ' + (
+const format_int = (n) => n.toString()
+const parse_int = (n) => +n
+const format_plural_word = (n, ws) => format_int(n) + ' ' + (
     n === 0 ? ws[1] :
     n === 1 ? ws[0] :
         ws[1]
@@ -26,10 +26,9 @@ const S = (n, ws) => A(n) + ' ' + (
 const ws_letters = ['letter', 'letters']
 
 // the first line in the finish msg; gives wpm and/or cpm, accuracy, and possibly other stats.
-const finish_msg_init = (cpm, wpm, len, sec, acc, lesson) => (
-    S(R(cpm), ws_letters) + ' per minute (' +
-    A(R(wpm)) + ' WPM with accuracy of ' + A(R(acc)) + '%).'
-)
+const finish_msg_init = (cpm, wpm, len, sec, acc, lesson) =>
+    format_plural_word(round_int(cpm), ws_letters) + ' per minute (' +
+    format_int(round_int(wpm)) + ' WPM with accuracy of ' + format_int(round_int(acc)) + '%).'
 
 // the second line in the finish msg, if there are more lessons.
 const finish_msg_forward = (cpm, wpm, len, sec, acc, wrong_chars, lesson) => '<br>'

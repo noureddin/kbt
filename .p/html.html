@@ -1,9 +1,9 @@
 <!doctype html>
-<html dir="rtl">
+<html lang="${lang}" dir="${dir}">
 <head>
  <meta charset="utf-8">
  <title>${title}</title>
- <link rel="stylesheet" type="text/css" href=".s/style.min.css">
+ <link rel="stylesheet" type="text/css" href=".s/${style}.min.css">
 </head>
 <body>
   <center>
@@ -22,11 +22,9 @@
     <input id="write">
     <pre id="keyboard"><<keyboard>></pre>
   </center>
-  <script><<lessons_js>></script>
+  <script><<lessons_js>>,<<mapping>></script>
   <script src=".s/${words_js}"></script>
   <script src=".s/${language_js}"></script>
-  <script><<mapping>></script>
-  <script src=".s/javascript.min.js"></script>
   <!-- <script src="../s/test.js"></script> -->
 </body>
 </html>

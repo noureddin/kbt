@@ -1,4 +1,4 @@
-var mapping = {
+M = {
   Backquote: ['ذ', 'ّ'],
   Minus: ['-', '_'],
   Equal: ['=', '+'],

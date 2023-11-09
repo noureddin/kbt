@@ -99,7 +99,7 @@ function set_words(lesson) {
     .join(' ')
   const limit = limit_for_lesson(lesson)
   set_completed(0, limit)
-  el_allwords.innerText = A(limit)
+  el_allwords.innerText = format_int(limit)
 }
 
 let kb = {}
@@ -174,16 +174,16 @@ const highlighter = (function () {
 })()
 
 function set_completed(n, limit) {
-  limit ||= D(el_allwords.innerText)
+  limit ||= parse_int(el_allwords.innerText)
   limit -= 1  // because we'll never show 100/100 words; instead it's replaced by "Done" 
   const len = limit.toString().length
-  el_compeleted.innerText = A(n.toString().padStart(len, '0'))
+  el_compeleted.innerText = format_int(n.toString().padStart(len, '0'))
 }
 
 function next_word (cur) {
   const next = cur.nextSibling?.nextSibling  // the direct next is a space
   if (next) {
-    const n = D(el_compeleted.innerText) + 1
+    const n = parse_int(el_compeleted.innerText) + 1
     set_completed(n)
     set_current(next)
     return true
@@ -198,7 +198,7 @@ function finish_msg(sec, len, wrong_chars, lesson) {
   const wpm = cpm / 5
   const acc = 100 - 100 * wrong_chars / len
   const args = [cpm, wpm, len, sec, acc, wrong_chars, +lesson]
-  // say('Lesson', lesson + ':', R(cpm,1), 'cpm;', R(wpm,1), 'wpm;', R(acc,2) + '% acc in', R(sec), 'sec —', wrong_chars, 'wrong out of', len, 'chars')
+  // say('Lesson', lesson + ':', round_int(cpm,1), 'cpm;', round_int(wpm,1), 'wpm;', round_int(acc,2) + '% acc in', round_int(sec), 'sec —', wrong_chars, 'wrong out of', len, 'chars')
   return (
     finish_msg_init(...args)
     + (+lesson < LETTERS.length? finish_msg_forward(...args) : finish_msg_end(...args) )
@@ -314,7 +314,7 @@ el_write.addEventListener('keydown', (ev) => {
     alert(TXT_ENTER_ALERT)
   }
   else if (emulate && !ev.ctrlKey && !ev.altKey) {
-    const k = mapping[ev.code]
+    const k = M[ev.code]  // mappings for the keyboard we are being trained on
     if (k) {
       ev.preventDefault()
       if (ev.shiftKey) {

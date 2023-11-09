@@ -19,11 +19,11 @@ function test_S() {
     ].forEach(x => {
         ++tests
         const [n, exp] = x
-        const got = S(n, ws_letters)
+        const got = format_plural_word(n, ws_letters)
         if (got !== exp) { say(got, '≠', exp, '→', n) }
         else { ++correct }
     })
-    say('S() tests successed', correct, 'out of', tests, 'total. Failed', tests - correct)
+    say('format_plural_word() tests successed', correct, 'out of', tests, 'total. Failed', tests - correct)
 }
 test_S()
 

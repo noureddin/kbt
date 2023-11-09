@@ -45,7 +45,7 @@ sub pipeline {
 for my $ar (@ar) {
   my $title = read_name($ar).' — مدرب لوحات المفاتيح';
   say "$ar: $ar/index.html";
-  say "$ar/index.html: .p/* $ar/.?? $ar/.mapping.min.js s/ar-words.js s/style.min.css s/javascript.min.js s/*";
+  say "$ar/index.html: .p/* $ar/.?? $ar/.mapping.min.js s/ar-words.js s/ar.min.js s/style.min.css";
   say pipeline
     ['' => ".p/html.html"],
     ['applyini' => ".p/arabic.ini", "keyboard=$ar", "title='$title'"],
@@ -60,11 +60,10 @@ for my $ar (@ar) {
 for my $en (@en) {
   my $title = read_name($en).' — Keyboard Trainer';
   say "$en: $en/index.html";
-  say "$en/index.html: .p/* $en/.?? $en/.mapping.min.js s/en-words.js s/ltr-style.min.css s/javascript.min.js s/*";
+  say "$en/index.html: .p/* $en/.?? $en/.mapping.min.js s/en-words.js s/en.min.js s/ltr-style.min.css";
   say pipeline
     ['' => ".p/html.html"],
     ['applyini' => ".p/english.ini", "keyboard=$en", "title='$title'"],
-    ['flipdirection'],  # also changes loading style.min.css to ltr-style.min.css
     ['hash-for-cache' => $en],
     ['minifier' => 'html'],
     ['mkkeyboard' => "$en/.kb"],
@@ -73,7 +72,7 @@ for my $en (@en) {
       "$en/index.html";
 }
 
-say q{index.html: .p/home.html .p/mkhome.pl s/main-style.min.css s/* */.info};
+say q{index.html: .p/home.html .p/mkhome.pl s/main-style.min.css */.info};
 say pipeline
   [mkhome => '.p/home.html'],
   ['hash-for-cache' => '.'],
@@ -86,11 +85,14 @@ say pipeline [flipdirection => 's/style.css'], 's/ltr-style.css';
 say q{s/%.min.css: s/%.css};
 say pipeline [minifier => 'css', '"$<"'], '"$@"';
 
-say q{s/%.min.js: s/%.js};
-say pipeline [minifier => 'js', '"$<"'], '"$@"';
-
 say q{%/.mapping.min.js: %/.mapping.js};
 say pipeline [minifier => 'js', '"$<"'], '"$@"';
+
+say q{s/%.min.js: s/%[^.]?*.js s/javascript.js};
+say pipeline
+  ['' => '"$<"', 's/javascript.js'],  # concatenate lang-specific js with the common one
+  ['minifier' => 'js'],
+    '"$@"';
 
 say q{s/ar-words.js:};
 say q{	# based on WikiSource Voweled Imalaai Quran Text};
