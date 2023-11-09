@@ -22,7 +22,7 @@ sub read_name { my ($kb) = @_;
   }
 }
 
-sub _color_cmd { join ' ', "\e[96m".shift."\e[m", @_ }
+sub _color_cmd { my $c = shift; join ' ', "\e[96m".($c ? $c : '<')."\e[m", @_ }
 
 sub pipeline {
   my $output = pop;
@@ -38,7 +38,7 @@ sub pipeline {
     join ' | ',
     map {
       my $cmd = shift @$_;
-      join ' ', "perl -CDAS -Mutf8 .p/$cmd.pl", @$_
+      join ' ', ($cmd ? "perl -CDAS -Mutf8 .p/$cmd.pl" : 'cat'), @$_
     } @_)
 }
 
@@ -47,7 +47,8 @@ for my $ar (@ar) {
   say "$ar: $ar/index.html";
   say "$ar/index.html: .p/* $ar/.?? $ar/.mapping.min.js s/ar-words.js s/style.min.css s/*";
   say pipeline
-    ['minifier' => 'html', ".p/html.html"],
+    ['' => ".p/html.html"],
+    ['minifier' => 'html'],
     ['mkkeyboard' => "$ar/.kb"],
     ['mklessons' => "$ar/.ls"],
     ['rmcomments'],
@@ -62,7 +63,8 @@ for my $en (@en) {
   say "$en: $en/index.html";
   say "$en/index.html: .p/* $en/.?? $en/.mapping.min.js s/en-words.js s/ltr-style.min.css s/*";
   say pipeline
-    ['minifier' => 'html', ".p/html.html"],
+    ['' => ".p/html.html"],
+    ['minifier' => 'html'],
     ['mkkeyboard' => "$en/.kb"],
     ['mklessons' => "$en/.ls"],
     ['rmcomments'],
