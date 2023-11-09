@@ -1,6 +1,7 @@
 'use strict'
 
 const say = console.log
+const LETTERS = L.split(' ')
 
 // Fisher-Yates (aka Knuth) Shuffle
 // https://stackoverflow.com/a/2450976

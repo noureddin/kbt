@@ -49,7 +49,7 @@ sub get_this { my ($title) = @_;
 sub read_lessons { my ($lessonsfile) = @_;
   my %defs;
   my $html;
-  my $js = "var LETTERS=[";
+  my @ltrs;
   my $i = 1;
   open my $input_lessons_fh, '<', $lessonsfile;
   while (<$input_lessons_fh>) {
@@ -72,14 +72,15 @@ sub read_lessons { my ($lessonsfile) = @_;
       my $this = $val =~ /\$\$/? get_this($title) : '';
       my $letters = eval_expr $val, {%defs, '$$' => $this};
       $html .= sprintf '<option value=%d%s>%s</option>', $num, $num==1?' selected':'', $title;
-      $js .= sprintf "'%s',", $letters =~ s/'/\\'/gr;
+      push @ltrs, $letters;
     }
     else {
       warn "unrecognized instruction at line $.: $_\n"
     }
   }
   close $input_lessons_fh;
-  $js .= "]";
+  my $js = sprintf 'var L="%s"', join ' ', @ltrs;
+  # NOTE: $js assumes " is not used; but ' is okay
   return $html, $js;
 }
 
