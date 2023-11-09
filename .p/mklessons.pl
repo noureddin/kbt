@@ -87,8 +87,8 @@ sub main {
   my $lessonsfile = shift @ARGV;
   my ($html, $js) = read_lessons $lessonsfile;
   while (<>) {
-    if (/id="lesson"/) { s|></select>|>$html</select>|g }
-    if (/id="lessons_js"/) { s|></script>|>$js</script>|g }
+    s|<<lessons>>|$html|;
+    s|<<lessons_js>>|$js|;
     print;
   }
 }
