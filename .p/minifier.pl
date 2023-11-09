@@ -5,7 +5,7 @@ use open qw[ :encoding(UTF-8) :std ];
 die "must provide an argument: js, css, or html\n"
   unless @ARGV;
 
-exec qw[ deno run --quiet --allow-read npm:uglify-js --compress top_retain='[play,mapping]',passes=5 --mangle toplevel,reserved='[play,mapping]' ], @ARGV[1..$#ARGV]
+exec qw[ deno run --quiet --allow-read npm:uglify-js --compress top_retain='[play]',passes=5 --mangle toplevel,reserved='[play]' ], @ARGV[1..$#ARGV]
   if $ARGV[0] eq 'js';
 
 exec qw[ deno run --quiet --allow-read npm:clean-css-cli ], @ARGV[1..$#ARGV]

@@ -1,4 +1,4 @@
-const mapping = {
+M = {
   Backquote: ['§', '±'],
   Minus: ['-', '_'],
   Equal: ['=', '+'],
