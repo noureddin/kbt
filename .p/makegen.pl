@@ -48,7 +48,6 @@ for my $ar (@ar) {
   say "$ar/index.html: .p/* $ar/.?? $ar/.mapping.min.js s/ar-words.js s/style.min.css s/*";
   say pipeline
     ['' => ".p/html.html"],
-    ['rmcomments'],
     ['applyini' => ".p/arabic.ini", "keyboard=$ar", "title='$title'"],
     ['hash-for-cache' => $ar],
     ['minifier' => 'html'],
@@ -64,7 +63,6 @@ for my $en (@en) {
   say "$en/index.html: .p/* $en/.?? $en/.mapping.min.js s/en-words.js s/ltr-style.min.css s/*";
   say pipeline
     ['' => ".p/html.html"],
-    ['rmcomments'],
     ['applyini' => ".p/english.ini", "keyboard=$en", "title='$title'"],
     ['flipdirection'],  # also changes loading style.min.css to ltr-style.min.css
     ['hash-for-cache' => $en],
@@ -78,7 +76,6 @@ for my $en (@en) {
 say q{index.html: .p/home.html .p/mkhome.pl s/* */.info};
 say pipeline
   [mkhome => '.p/home.html'],
-  ['rmcomments'],
   ['hash-for-cache' => '.'],
   ['minifier' => 'html'],
     'index.html';
