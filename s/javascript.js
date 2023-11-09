@@ -1,6 +1,6 @@
 'use strict'
 
-const say = console.log
+// const say = console.log
 const LETTERS = L.split(' ')
 
 // Fisher-Yates (aka Knuth) Shuffle
@@ -198,7 +198,7 @@ function finish_msg(sec, len, wrong_chars, lesson) {
   const wpm = cpm / 5
   const acc = 100 - 100 * wrong_chars / len
   const args = [cpm, wpm, len, sec, acc, wrong_chars, +lesson]
-  say('Lesson', lesson + ':', R(cpm,1), 'cpm;', R(wpm,1), 'wpm;', R(acc,2) + '% acc in', R(sec), 'sec —', wrong_chars, 'wrong out of', len, 'chars')
+  // say('Lesson', lesson + ':', R(cpm,1), 'cpm;', R(wpm,1), 'wpm;', R(acc,2) + '% acc in', R(sec), 'sec —', wrong_chars, 'wrong out of', len, 'chars')
   return (
     finish_msg_init(...args)
     + (+lesson < LETTERS.length? finish_msg_forward(...args) : finish_msg_end(...args) )

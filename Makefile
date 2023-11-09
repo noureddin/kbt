@@ -1,7 +1,7 @@
 all: index.html arak dv-ar dvorak ibm-ar
 
 arak: arak/index.html
-arak/index.html: .p/* arak/.?? arak/.mapping.min.js s/ar-words.js s/style.min.css s/*
+arak/index.html: .p/* arak/.?? arak/.mapping.min.js s/ar-words.js s/style.min.css s/javascript.min.js s/*
 	@printf "\e[93m%s\e[m %s\n" "$$" "[96m<[m .p/html.html"
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mapplyini[m .p/arabic.ini keyboard=arak title='أراك — مدرب لوحات المفاتيح'"
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mhash-for-cache[m arak"
@@ -13,7 +13,7 @@ arak/index.html: .p/* arak/.?? arak/.mapping.min.js s/ar-words.js s/style.min.cs
 	@cat .p/html.html | perl -CDAS -Mutf8 .p/applyini.pl .p/arabic.ini keyboard=arak title='أراك — مدرب لوحات المفاتيح' | perl -CDAS -Mutf8 .p/hash-for-cache.pl arak | perl -CDAS -Mutf8 .p/minifier.pl html | perl -CDAS -Mutf8 .p/mkkeyboard.pl arak/.kb | perl -CDAS -Mutf8 .p/mklessons.pl arak/.ls | perl -CDAS -Mutf8 .p/mapping.pl arak > arak/index.html
 
 dv-ar: dv-ar/index.html
-dv-ar/index.html: .p/* dv-ar/.?? dv-ar/.mapping.min.js s/ar-words.js s/style.min.css s/*
+dv-ar/index.html: .p/* dv-ar/.?? dv-ar/.mapping.min.js s/ar-words.js s/style.min.css s/javascript.min.js s/*
 	@printf "\e[93m%s\e[m %s\n" "$$" "[96m<[m .p/html.html"
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mapplyini[m .p/arabic.ini keyboard=dv-ar title='لوحة دڤوراك العربية الصوتية (تجريبية) — مدرب لوحات المفاتيح'"
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mhash-for-cache[m dv-ar"
@@ -25,7 +25,7 @@ dv-ar/index.html: .p/* dv-ar/.?? dv-ar/.mapping.min.js s/ar-words.js s/style.min
 	@cat .p/html.html | perl -CDAS -Mutf8 .p/applyini.pl .p/arabic.ini keyboard=dv-ar title='لوحة دڤوراك العربية الصوتية (تجريبية) — مدرب لوحات المفاتيح' | perl -CDAS -Mutf8 .p/hash-for-cache.pl dv-ar | perl -CDAS -Mutf8 .p/minifier.pl html | perl -CDAS -Mutf8 .p/mkkeyboard.pl dv-ar/.kb | perl -CDAS -Mutf8 .p/mklessons.pl dv-ar/.ls | perl -CDAS -Mutf8 .p/mapping.pl dv-ar > dv-ar/index.html
 
 ibm-ar: ibm-ar/index.html
-ibm-ar/index.html: .p/* ibm-ar/.?? ibm-ar/.mapping.min.js s/ar-words.js s/style.min.css s/*
+ibm-ar/index.html: .p/* ibm-ar/.?? ibm-ar/.mapping.min.js s/ar-words.js s/style.min.css s/javascript.min.js s/*
 	@printf "\e[93m%s\e[m %s\n" "$$" "[96m<[m .p/html.html"
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mapplyini[m .p/arabic.ini keyboard=ibm-ar title='لوحة المفاتيح العربية الشائعة (IBM) — مدرب لوحات المفاتيح'"
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mhash-for-cache[m ibm-ar"
@@ -37,7 +37,7 @@ ibm-ar/index.html: .p/* ibm-ar/.?? ibm-ar/.mapping.min.js s/ar-words.js s/style.
 	@cat .p/html.html | perl -CDAS -Mutf8 .p/applyini.pl .p/arabic.ini keyboard=ibm-ar title='لوحة المفاتيح العربية الشائعة (IBM) — مدرب لوحات المفاتيح' | perl -CDAS -Mutf8 .p/hash-for-cache.pl ibm-ar | perl -CDAS -Mutf8 .p/minifier.pl html | perl -CDAS -Mutf8 .p/mkkeyboard.pl ibm-ar/.kb | perl -CDAS -Mutf8 .p/mklessons.pl ibm-ar/.ls | perl -CDAS -Mutf8 .p/mapping.pl ibm-ar > ibm-ar/index.html
 
 dvorak: dvorak/index.html
-dvorak/index.html: .p/* dvorak/.?? dvorak/.mapping.min.js s/en-words.js s/ltr-style.min.css s/*
+dvorak/index.html: .p/* dvorak/.?? dvorak/.mapping.min.js s/en-words.js s/ltr-style.min.css s/javascript.min.js s/*
 	@printf "\e[93m%s\e[m %s\n" "$$" "[96m<[m .p/html.html"
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mapplyini[m .p/english.ini keyboard=dvorak title='Dvorak (DSK) — Keyboard Trainer'"
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mflipdirection[m"
@@ -49,7 +49,7 @@ dvorak/index.html: .p/* dvorak/.?? dvorak/.mapping.min.js s/en-words.js s/ltr-st
 	@printf "\e[93m%s\e[m %s\n" ">" "[1;92mdvorak/index.html[m"
 	@cat .p/html.html | perl -CDAS -Mutf8 .p/applyini.pl .p/english.ini keyboard=dvorak title='Dvorak (DSK) — Keyboard Trainer' | perl -CDAS -Mutf8 .p/flipdirection.pl | perl -CDAS -Mutf8 .p/hash-for-cache.pl dvorak | perl -CDAS -Mutf8 .p/minifier.pl html | perl -CDAS -Mutf8 .p/mkkeyboard.pl dvorak/.kb | perl -CDAS -Mutf8 .p/mklessons.pl dvorak/.ls | perl -CDAS -Mutf8 .p/mapping.pl dvorak > dvorak/index.html
 
-index.html: .p/home.html .p/mkhome.pl s/* */.info
+index.html: .p/home.html .p/mkhome.pl s/main-style.min.css s/* */.info
 	@printf "\e[93m%s\e[m %s\n" "$$" "[96mmkhome[m .p/home.html"
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mhash-for-cache[m ."
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mminifier[m html"
@@ -65,6 +65,11 @@ s/%.min.css: s/%.css
 	@printf "\e[93m%s\e[m %s\n" "$$" "[96mminifier[m css "$<""
 	@printf "\e[93m%s\e[m %s\n" ">" "[1;92m"$@"[m"
 	@perl -CDAS -Mutf8 .p/minifier.pl css "$<" > "$@"
+
+s/%.min.js: s/%.js
+	@printf "\e[93m%s\e[m %s\n" "$$" "[96mminifier[m js "$<""
+	@printf "\e[93m%s\e[m %s\n" ">" "[1;92m"$@"[m"
+	@perl -CDAS -Mutf8 .p/minifier.pl js "$<" > "$@"
 
 %/.mapping.min.js: %/.mapping.js
 	@printf "\e[93m%s\e[m %s\n" "$$" "[96mminifier[m js "$<""
