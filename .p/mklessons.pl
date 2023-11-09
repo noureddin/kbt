@@ -71,7 +71,7 @@ sub read_lessons { my ($lessonsfile) = @_;
       if ($val =~ /\$\$/ && $title !~ /\+/) { die "\$\$ wanted but found no '+' in lesson $num at line $.\n" }
       my $this = $val =~ /\$\$/? get_this($title) : '';
       my $letters = eval_expr $val, {%defs, '$$' => $this};
-      $html .= sprintf '<option value="%d"%s>%s</option>', $num, $num==1?' selected':'', $title;
+      $html .= sprintf '<option value=%d%s>%s</option>', $num, $num==1?' selected':'', $title;
       $js .= sprintf "'%s',", $letters =~ s/'/\\'/gr;
     }
     else {
