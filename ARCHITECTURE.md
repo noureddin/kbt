@@ -18,10 +18,12 @@
 2. `mkhome.pl`: generates the homepage.
 3. `mkkeyboard.pl`: parses the keyboard and inserts it properly in the html template.
 4. `mklessons.pl`: parses the lessons and inserts them properly in the html template.
-5. `rmcomments.pl`: removes four-hyphen html comments (ie, those starting with `<!----`).
-6. `flipdirection.pl`: flips the horizontal direction of html or css.
+5. `mapping.pl`: adds the emulation data to the html.
+6. `flipdirection.pl`: flips the horizontal direction of css, and removes the Arabic font.
 7. `applyini.pl`: applies the localization to the html.
 8. `hash-for-cache.pl`: adds a unique querystring to static resources for cache-busting on change.
+9. `minifier.pl`: call it with a first arg of `js`, `css`, or `html`, so it calls the appropriate tool. needs `deno`.
+10. `html-minify.pl`: the "appropriate tool" for minifying html. the same one used in [Recite](https://github.com/noureddin/recite).
 
 ## Static (`s/`)
 
@@ -42,6 +44,9 @@
 - `ar-words.js`: an array of all our Arabic words; generated from `.w` via `Makefile`.
 - `en-words.js`: an array of all our English words; generated from `.w` via `Makefile`.
 - `ltr-style.css`: CSS for the English lessons pages; generated from `style.css` by `.p/flipdirection.pl` via `Makefile`.
+- `*.min.*`: generated from the corresponding files without the `.min` part, except for the following two.
+- `ar.min.js`: concatenation of `arabic.js` and `javascript.js` then minified.
+- `en.min.js`: concatenation of `english.js` and `javascript.js` then minified.
 
 ## Resources (`.w/`)
 
