@@ -8,7 +8,7 @@ my @all = map { -e s,..$,ls,r ? s,.{4}$,,r : () } glob '*/.kb';
 my @ar = grep { 0==system('grep', '-q', 'ب', "$_/.kb") } @all;
 my @en = grep { 0!=system('grep', '-q', 'ب', "$_/.kb") } @all;
 
-say "all: index.html @all";
+say "all: Makefile index.html @all";
 say '';
 
 sub read_name { my ($kb) = @_;
@@ -42,6 +42,11 @@ sub pipeline {
     } @_)
 }
 
+say 'Makefile: .p/makegen.pl';
+say pipeline
+  ['makegen'],
+    'Makefile';
+
 for my $ar (@ar) {
   my $title = read_name($ar).' — مدرب لوحات المفاتيح';
   say "$ar: $ar/index.html";
@@ -74,7 +79,7 @@ for my $en (@en) {
 
 say q{index.html: .p/home.html .p/mkhome.pl s/main-style.min.css */.info};
 say pipeline
-  [mkhome => '.p/home.html'],
+  ['mkhome' => '.p/home.html'],
   ['hash-for-cache' => '.'],
   ['minifier' => 'html'],
     'index.html';
@@ -94,27 +99,27 @@ say pipeline
   ['minifier' => 'js'],
     '"$@"';
 
-say q{s/ar-words.js:};
-say q{	# based on WikiSource Voweled Imalaai Quran Text};
-say q{	# # the 3rd s-cmd in the 1st sed to move the shadda before the other vowel, b/c wikisource always puts it after the vowel.};
-say q{	# sed 's/([0-9]\+)//g; s/ \+/\n/g; s/\(.\)ّ/ّ\1/g' quran | sort -u | grep -v ^$$ > voweled-imlaai-quran-words};
-say q{	<.w/voweled-imlaai-quran-words sed 's/^/"/; s/$$/",/' | sed -ne '1ivar FULL_WORDS=[' -e 'p;$$i]' | tr -d '\n' > s/ar-words.js};
-say q{};
+say 's/ar-words.js: .w/voweled-imlaai-quran-words';
+say "\t", q{# based on WikiSource Voweled Imalaai Quran Text};
+say "\t", q{# # the 3rd s-cmd in the 1st sed to move the shadda before the other vowel, b/c wikisource always puts it after the vowel.};
+say "\t", q{# sed 's/([0-9]\+)//g; s/ \+/\n/g; s/\(.\)ّ/ّ\1/g' quran | sort -u | grep -v ^$$ > voweled-imlaai-quran-words};
+say "\t", q{< "$<" sed 's/^/"/; s/$$/",/' | sed -ne '1ivar FULL_WORDS=[' -e 'p;$$i]' | tr -d '\n' > "$@"};
+say '';
 
-say q{s/en-words.js:};
-say q{	# based on XKCD Simple Writer Word List 0.2.1};
-say q{	<.w/xkcd-simple-writer-words sed 's/^/"/; s/$$/",/' | sed -ne '1ivar FULL_WORDS=[' -e 'p;$$i]' | tr -d '\n' > s/en-words.js};
-say q{};
+say 's/en-words.js: .w/xkcd-simple-writer-words';
+say "\t", q{# based on XKCD Simple Writer Word List 0.2.1};
+say "\t", q{< "$<" sed 's/^/"/; s/$$/",/' | sed -ne '1ivar FULL_WORDS=[' -e 'p;$$i]' | tr -d '\n' > "$@"};
+say '';
 
-say q{real_clean: clean};
-say q{	rm -rf s/en-words.js s/ar-words.js};
-say q{};
+say 'real_clean: clean';
+say "\t", q{rm -rf s/en-words.js s/ar-words.js};
+say '';
 
-say q{clean:};
-say q{	rm -rf s/ltr-style.css s/*style.min.css index.html */.mapping.min.js */index.html };
-say q{};
+say 'clean:';
+say "\t", q{rm -rf s/ltr-style.css s/*style.min.css index.html */.mapping.min.js */index.html};
+say '';
 
-say q{update:};
+say 'update:';
 say pipeline ['makegen'], 'Makefile';
 
 say ".PHONEY: update real_clean clean @all";
