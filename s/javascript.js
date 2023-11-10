@@ -43,7 +43,7 @@ const words_for_lesson = (n, lim) => {
   // the inner shuffles are to pick random slice of words
 }
 
-const now = () => (new Date()).getTime()
+const now_ms = () => (new Date()).getTime()  // unix epoch in ms
 
 const Q = (q) => document.querySelector(q)
 const Qid = (q) => document.getElementById(q)
@@ -222,10 +222,25 @@ function play (lesson) {
   highlighter.start()
 
   let start
+  let away_since
   let wrong_chars = 0
 
+  onblur = () => {
+    if (start == null) { return }  // not started yet
+    away_since = now_ms()
+  }
+  onfocus = () => {
+    if (start == null) { return }  // not started yet
+    if (away_since == null) {  // if the lesson is started without being focused; should never happen b/c lessons start with the first keypress
+      console.warn('How on Earth have you managed to start the lesson while not focusing the screen? Please share you wisdom and report this at https://github.com/noureddin/kbt')
+    }
+    else {
+      start += now_ms() - away_since  // delay starting time by the away duration
+    }
+  }
+
   function show_finish() {
-    const end = now()
+    const end = now_ms()
     const sec = (end - start) / 1000
     const len = el_screen.innerText.length
     mark(el_body, 'finish')
@@ -236,7 +251,7 @@ function play (lesson) {
   }
 
   function check_input (word_finished) {
-    if (start == null) { start = now() }
+    if (start == null) { start = now_ms() }  // start watching time with the first keypress
     const right = el_current.textContent
     const input = el_write.value.trim()
     el_write.value = input  // to remove any excess spaces in the input field itself
