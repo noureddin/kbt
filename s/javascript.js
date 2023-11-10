@@ -84,11 +84,11 @@ const   wrong_char = (c) => {   mark(c, 'wrong-letter'); unmark(c, 'correct-lett
 // }, '')
 // // END DEBUG
 
-const el_compeleted = document.getElementById('completed')
-const el_allwords = document.getElementById('allwords')
-const el_lesson = document.getElementById('lesson')
-const el_screen = document.getElementById('screen')
-const el_write = document.getElementById('write')
+const el_compeleted = Qid('completed')
+const el_allwords = Qid('allwords')
+const el_lesson = Qid('lesson')
+const el_screen = Qid('screen')
+const el_write = Qid('write')
 const el_body = document.body
 let el_current
 
@@ -201,7 +201,7 @@ function finish_msg(sec, len, wrong_chars, lesson) {
   // say('Lesson', lesson + ':', round_int(cpm,1), 'cpm;', round_int(wpm,1), 'wpm;', round_int(acc,2) + '% acc in', round_int(sec), 'sec —', wrong_chars, 'wrong out of', len, 'chars')
   return (
     finish_msg_init(...args)
-    + (+lesson < LETTERS.length? finish_msg_forward(...args) : finish_msg_end(...args) )
+    + (+lesson < LETTERS.length ? finish_msg_forward(...args) : finish_msg_end(...args) )
     + (acc >= 90 ? '' : finish_msg_repeat(...args) )
   )
 }
@@ -209,8 +209,8 @@ function finish_msg(sec, len, wrong_chars, lesson) {
 function play (lesson) {
   if (!lesson || lesson < 1) { lesson = 1 }
   if (lesson >= LETTERS.length) { lesson = LETTERS.length }
-  window.location.hash = lesson
-  window.location.search = ''
+  location.hash = lesson
+  location.search = ''
   el_lesson.value = lesson
   set_words(lesson)
   unmark(el_body, 'finish')
@@ -245,9 +245,9 @@ function play (lesson) {
     const len = el_screen.innerText.length
     mark(el_body, 'finish')
     el_screen.innerHTML = finish_msg(sec, len, wrong_chars, lesson)
-    start = undefined
+    start = null
     highlighter.end()
-    el_write.oninput = () => {}
+    el_write.oninput = null
   }
 
   function check_input (word_finished) {
@@ -313,14 +313,14 @@ function insert_in_field (el, ch) {
 
 const left_side = {
   Backquote: true,
-    KeyQ: true,  KeyW: true,  KeyE: true,  KeyR: true,  KeyT: true,
-     KeyA: true,  KeyS: true,  KeyD: true,  KeyF: true,  KeyG: true,
-      KeyZ: true,  KeyX: true,  KeyC: true,  KeyV: true,  KeyB: true,
 }
+;('QWERT'
+  +'ASDFG'
+   +'ZXCVB').split('').forEach(c => left_side['Key'+c] = true)
 
 let prev_shift
 
-el_write.addEventListener('keydown', (ev) => {
+el_write.onkeydown = (ev) => {
   const emulate = Qid('emu').checked
   if (ev.key === 'Shift') {
     prev_shift = ev.code.substr(5, 1)  // 'L' or 'R'
@@ -350,16 +350,16 @@ el_write.addEventListener('keydown', (ev) => {
       el_write.oninput(ev)
     }
   }
-})
+}
 
-window.addEventListener('resize', () => {
+onresize = () => {
   if (el_current) { el_current.scrollIntoView() }
-})
+}
 
-window.addEventListener('load', () => {
+onload = () => {
   el_write.value = ''
-  play(+window.location.hash.slice(1) || +window.location.search.slice(1) || 1)
-})
+  play(+location.hash.slice(1) || +location.search.slice(1) || 1)
+}
 
 // Search parameter `https://.../?4` is more convenient, e.g., to force reload the page.
 // Hash parameter `https://.../#4` is the primarily supported. And if both exist, hash takes

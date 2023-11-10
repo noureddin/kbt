@@ -15,7 +15,7 @@ arak/index.html: .p/* arak/.?? arak/.mapping.min.js s/ar-words.js s/ar.min.js s/
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mmklessons[m arak/.ls"
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mmapping[m arak"
 	@printf "\e[93m%s\e[m %s\n" ">" "[1;92marak/index.html[m"
-	@cat .p/html.html | perl -CDAS -Mutf8 .p/applyini.pl .p/arabic.ini keyboard=arak title='أراك — مدرب لوحات المفاتيح' | perl -CDAS -Mutf8 .p/hash-for-cache.pl arak | perl -CDAS -Mutf8 .p/minifier.pl html | perl -CDAS -Mutf8 .p/mkkeyboard.pl arak/.kb | perl -CDAS -Mutf8 .p/mklessons.pl arak/.ls | perl -CDAS -Mutf8 .p/mapping.pl arak > arak/index.html
+	@cat .p/html.html | perl -CDAS -Mutf8 .p/applyini.pl .p/arabic.ini keyboard=arak title='أراك — مدرب لوحات المفاتيح' | perl -CDAS -Mutf8 .p/hash-for-cache.pl arak | perl -CDAS -Mutf8 .p/minifier.pl html | tr -d '\n' | perl -CDAS -Mutf8 .p/mkkeyboard.pl arak/.kb | perl -CDAS -Mutf8 .p/mklessons.pl arak/.ls | perl -CDAS -Mutf8 .p/mapping.pl arak > arak/index.html
 
 dv-ar: dv-ar/index.html
 dv-ar/index.html: .p/* dv-ar/.?? dv-ar/.mapping.min.js s/ar-words.js s/ar.min.js s/style.min.css
@@ -27,7 +27,7 @@ dv-ar/index.html: .p/* dv-ar/.?? dv-ar/.mapping.min.js s/ar-words.js s/ar.min.js
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mmklessons[m dv-ar/.ls"
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mmapping[m dv-ar"
 	@printf "\e[93m%s\e[m %s\n" ">" "[1;92mdv-ar/index.html[m"
-	@cat .p/html.html | perl -CDAS -Mutf8 .p/applyini.pl .p/arabic.ini keyboard=dv-ar title='لوحة دڤوراك العربية الصوتية (تجريبية) — مدرب لوحات المفاتيح' | perl -CDAS -Mutf8 .p/hash-for-cache.pl dv-ar | perl -CDAS -Mutf8 .p/minifier.pl html | perl -CDAS -Mutf8 .p/mkkeyboard.pl dv-ar/.kb | perl -CDAS -Mutf8 .p/mklessons.pl dv-ar/.ls | perl -CDAS -Mutf8 .p/mapping.pl dv-ar > dv-ar/index.html
+	@cat .p/html.html | perl -CDAS -Mutf8 .p/applyini.pl .p/arabic.ini keyboard=dv-ar title='لوحة دڤوراك العربية الصوتية (تجريبية) — مدرب لوحات المفاتيح' | perl -CDAS -Mutf8 .p/hash-for-cache.pl dv-ar | perl -CDAS -Mutf8 .p/minifier.pl html | tr -d '\n' | perl -CDAS -Mutf8 .p/mkkeyboard.pl dv-ar/.kb | perl -CDAS -Mutf8 .p/mklessons.pl dv-ar/.ls | perl -CDAS -Mutf8 .p/mapping.pl dv-ar > dv-ar/index.html
 
 ibm-ar: ibm-ar/index.html
 ibm-ar/index.html: .p/* ibm-ar/.?? ibm-ar/.mapping.min.js s/ar-words.js s/ar.min.js s/style.min.css
@@ -39,7 +39,7 @@ ibm-ar/index.html: .p/* ibm-ar/.?? ibm-ar/.mapping.min.js s/ar-words.js s/ar.min
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mmklessons[m ibm-ar/.ls"
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mmapping[m ibm-ar"
 	@printf "\e[93m%s\e[m %s\n" ">" "[1;92mibm-ar/index.html[m"
-	@cat .p/html.html | perl -CDAS -Mutf8 .p/applyini.pl .p/arabic.ini keyboard=ibm-ar title='لوحة المفاتيح العربية الشائعة (IBM) — مدرب لوحات المفاتيح' | perl -CDAS -Mutf8 .p/hash-for-cache.pl ibm-ar | perl -CDAS -Mutf8 .p/minifier.pl html | perl -CDAS -Mutf8 .p/mkkeyboard.pl ibm-ar/.kb | perl -CDAS -Mutf8 .p/mklessons.pl ibm-ar/.ls | perl -CDAS -Mutf8 .p/mapping.pl ibm-ar > ibm-ar/index.html
+	@cat .p/html.html | perl -CDAS -Mutf8 .p/applyini.pl .p/arabic.ini keyboard=ibm-ar title='لوحة المفاتيح العربية الشائعة (IBM) — مدرب لوحات المفاتيح' | perl -CDAS -Mutf8 .p/hash-for-cache.pl ibm-ar | perl -CDAS -Mutf8 .p/minifier.pl html | tr -d '\n' | perl -CDAS -Mutf8 .p/mkkeyboard.pl ibm-ar/.kb | perl -CDAS -Mutf8 .p/mklessons.pl ibm-ar/.ls | perl -CDAS -Mutf8 .p/mapping.pl ibm-ar > ibm-ar/index.html
 
 dvorak: dvorak/index.html
 dvorak/index.html: .p/* dvorak/.?? dvorak/.mapping.min.js s/en-words.js s/en.min.js s/ltr-style.min.css
@@ -51,14 +51,14 @@ dvorak/index.html: .p/* dvorak/.?? dvorak/.mapping.min.js s/en-words.js s/en.min
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mmklessons[m dvorak/.ls"
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mmapping[m dvorak"
 	@printf "\e[93m%s\e[m %s\n" ">" "[1;92mdvorak/index.html[m"
-	@cat .p/html.html | perl -CDAS -Mutf8 .p/applyini.pl .p/english.ini keyboard=dvorak title='Dvorak (DSK) — Keyboard Trainer' | perl -CDAS -Mutf8 .p/hash-for-cache.pl dvorak | perl -CDAS -Mutf8 .p/minifier.pl html | perl -CDAS -Mutf8 .p/mkkeyboard.pl dvorak/.kb | perl -CDAS -Mutf8 .p/mklessons.pl dvorak/.ls | perl -CDAS -Mutf8 .p/mapping.pl dvorak > dvorak/index.html
+	@cat .p/html.html | perl -CDAS -Mutf8 .p/applyini.pl .p/english.ini keyboard=dvorak title='Dvorak (DSK) — Keyboard Trainer' | perl -CDAS -Mutf8 .p/hash-for-cache.pl dvorak | perl -CDAS -Mutf8 .p/minifier.pl html | tr -d '\n' | perl -CDAS -Mutf8 .p/mkkeyboard.pl dvorak/.kb | perl -CDAS -Mutf8 .p/mklessons.pl dvorak/.ls | perl -CDAS -Mutf8 .p/mapping.pl dvorak > dvorak/index.html
 
 index.html: .p/home.html .p/mkhome.pl s/main-style.min.css */.info
 	@printf "\e[93m%s\e[m %s\n" "$$" "[96mmkhome[m .p/home.html"
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mhash-for-cache[m ."
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mminifier[m html"
 	@printf "\e[93m%s\e[m %s\n" ">" "[1;92mindex.html[m"
-	@perl -CDAS -Mutf8 .p/mkhome.pl .p/home.html | perl -CDAS -Mutf8 .p/hash-for-cache.pl . | perl -CDAS -Mutf8 .p/minifier.pl html > index.html
+	@perl -CDAS -Mutf8 .p/mkhome.pl .p/home.html | perl -CDAS -Mutf8 .p/hash-for-cache.pl . | perl -CDAS -Mutf8 .p/minifier.pl html | tr -d '\n' > index.html
 
 s/ltr-style.css: s/style.css
 	@printf "\e[93m%s\e[m %s\n" "$$" "[96mflipdirection[m s/style.css"
@@ -79,7 +79,7 @@ s/%.min.js: s/%[^.]?*.js s/javascript.js
 	@printf "\e[93m%s\e[m %s\n" "$$" "[96m<[m "$<" s/javascript.js"
 	@printf "\e[93m%s\e[m %s\n" "|" "[96mminifier[m js"
 	@printf "\e[93m%s\e[m %s\n" ">" "[1;92m"$@"[m"
-	@cat "$<" s/javascript.js | perl -CDAS -Mutf8 .p/minifier.pl js > "$@"
+	@cat "$<" s/javascript.js | perl -CDAS -Mutf8 .p/minifier.pl js | tr -d '\n' > "$@"
 
 s/ar-words.js: .w/voweled-imlaai-quran-words
 	# based on WikiSource Voweled Imalaai Quran Text

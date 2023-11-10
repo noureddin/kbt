@@ -7,15 +7,16 @@ const want_full_words = (letters) => letters.match(/[ًٌٍَُِّْ]/)
 const WORDS_LIMIT = 100
 const FULL_WORDS_LIMIT = Math.round(WORDS_LIMIT / 2)
 
-const lessons_ordinal = ['الأول', 'الثاني', 'الثالث', 'الرابع', 'الخامس', 'السادس', 'السابع', 'الثامن', 'الأخير'].map(e => 'الدرس&ensp;'+e)
+const lessons_ordinal = ['أول', 'ثاني', 'ثالث', 'رابع', 'خامس', 'سادس', 'سابع', 'ثامن', 'أخير'].map(e => 'الدرس&ensp;ال'+e)
 
 const TXT_ENTER_ALERT = 'اضغط زر المسافة بعد كل كلمة، فهو أسرع، وهو المعتاد'
 
 const BAD_LEFT_SHIFT_ALERT = 'استخدم زر العالي الأيمن مع الأزرار التي على يسار اللوحة'
 const BAD_RIGHT_SHIFT_ALERT = 'استخدم زر العالي الأيسر مع الأزرار التي على يمين اللوحة'
 
-// Round to arbitrary precision
-const round_int = (e,p) => p ? Math.round(e * 10**p) / 10**p : Math.round(e)
+// // Round to arbitrary precision
+// const round_int = (e,p) => p? Math.round(e * 10**p) / 10**p : Math.round(e)
+const round_int = (e) => Math.round(e)
 
 const format_int = (n) => n.toString()
     .replace(/0/g,'٠').replace(/1/g,'١').replace(/2/g,'٢').replace(/3/g,'٣').replace(/4/g,'٤')
@@ -23,23 +24,16 @@ const format_int = (n) => n.toString()
 const parse_int = (n) => +n
     .replace(/٠/g,'0').replace(/١/g,'1').replace(/٢/g,'2').replace(/٣/g,'3').replace(/٤/g,'4')
     .replace(/٥/g,'5').replace(/٦/g,'6').replace(/٧/g,'7').replace(/٨/g,'8').replace(/٩/g,'9')
-const format_plural_word = (n, ws) => format_int(n) + ' ' + (
-    n === 0 ? ws[0] :
-    n === 1 ? ws[1] :
-    n === 2 ? ws[2] :
-    n % 100 === 0 ? ws[5] :
-    n % 100 < 11 ? ws[3] :
-        ws[4]
-) // ws is 0, 1, 2 (-iin), 3-10 [3], 11-99 [4], 100x [5]
-
-const ws_letters = ['حرف', 'حرف', 'حرفين', 'أحرف', 'حرفًا', 'حرف']
-const ws_words = ['كلمة', 'كلمة', 'كلمتين', 'كلمات', 'كلمة', 'كلمة']
-const ws_minutes = ['دقيقة', 'دقيقة', 'دقيقتين', 'دقائق', 'دقيقة', 'دقيقة']
-const ws_seconds = ['ثانية', 'ثانية', 'ثانيتين', 'ثوانٍ', 'ثانية', 'ثانية']
+const format_plural_for_letters = (n) => format_int(n) + ' ' + (
+    n === 2 ? 'حرفين' :
+    n % 100 > 2 && n % 100 < 11 ? 'أحرف' :
+        'حرف'
+)
+// was using a more proper way, but was long and not used
 
 // the first line in the finish msg; gives wpm and/or cpm, accuracy, and possibly other stats.
 const finish_msg_init = (cpm, wpm, len, sec, acc, lesson) =>
-    format_plural_word(round_int(cpm), ws_letters) + ' في الدقيقة (' +
+    format_plural_for_letters(round_int(cpm)) + ' في الدقيقة (' +
     format_int(round_int(wpm)) + ' ك/د بصحة ' + format_int(round_int(acc)) + '٪).'
 
 // the second line in the finish msg, if there are more lessons.

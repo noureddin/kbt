@@ -40,6 +40,8 @@ sub pipeline {
       my $cmd = shift @$_;
       join ' ', ($cmd ? "perl -CDAS -Mutf8 .p/$cmd.pl" : 'cat'), @$_
     } @_)
+    =~ s,(\Q | perl -CDAS -Mutf8 .p/minifier.pl \E[^|>]*),$1| tr -d '\\n' ,gr
+    # strip newlines after minification, because uglifyjs ends files with them
 }
 
 say 'Makefile: .p/makegen.pl';

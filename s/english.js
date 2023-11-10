@@ -12,22 +12,17 @@ const TXT_ENTER_ALERT = "Use Space after each word; it's faster, and it's the us
 const BAD_LEFT_SHIFT_ALERT = 'Use the right-side Shift with keys on the left side of the keyboard'
 const BAD_RIGHT_SHIFT_ALERT = 'Use the left-side Shift with keys on the right side of the keyboard'
 
-// Round to arbitrary precision
-const round_int = (e,p) => p? Math.round(e * 10**p) / 10**p : Math.round(e)
+// // Round to arbitrary precision
+// const round_int = (e,p) => p? Math.round(e * 10**p) / 10**p : Math.round(e)
+const round_int = (e) => Math.round(e)
 
 const format_int = (n) => n.toString()
 const parse_int = (n) => +n
-const format_plural_word = (n, ws) => format_int(n) + ' ' + (
-    n === 0 ? ws[1] :
-    n === 1 ? ws[0] :
-        ws[1]
-)
-
-const ws_letters = ['letter', 'letters']
+const format_plural_for_letters = (n) => format_int(n) + ' letter' + (n !== 1 ? 's' : '')
 
 // the first line in the finish msg; gives wpm and/or cpm, accuracy, and possibly other stats.
 const finish_msg_init = (cpm, wpm, len, sec, acc, lesson) =>
-    format_plural_word(round_int(cpm), ws_letters) + ' per minute (' +
+    format_plural_for_letters(round_int(cpm)) + ' per minute (' +
     format_int(round_int(wpm)) + ' WPM with accuracy of ' + format_int(round_int(acc)) + '%).'
 
 // the second line in the finish msg, if there are more lessons.
