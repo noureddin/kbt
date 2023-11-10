@@ -322,13 +322,14 @@ let prev_shift
 
 el_write.onkeydown = (ev) => {
   const emulate = Qid('emu').checked
+  if (ev.ctrlKey || ev.altKey) { return }
   if (ev.key === 'Shift') {
     prev_shift = ev.code.substr(5, 1)  // 'L' or 'R'
   }
   else if (ev.key === 'Enter') {
     alert(TXT_ENTER_ALERT)
   }
-  else if (emulate && !ev.ctrlKey && !ev.altKey) {
+  else if (emulate) {
     const k = M[ev.code]  // mappings for the keyboard we are being trained on
     if (k) {
       ev.preventDefault()
