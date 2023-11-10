@@ -72,9 +72,6 @@ const finish_msg_repeat = (cpm, wpm, len, sec, acc, wrong_chars, lesson) => '<br
 // )
 
 function ligature_need_break (prev, ltr) {
-    const x = prev + ltr
-    if (x === 'لا') { return true }
-    if (x === 'لم') { return true }
-    if (x === 'مم') { return true }
-    return false
+    return !!(prev + ltr).match(/ل[اأإآ]|[لم]م/)
+    // lam-alef ligatures, and lam-meem and meem-meem b/c Kawkab Mono uses them
 }
