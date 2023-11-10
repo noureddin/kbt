@@ -53,14 +53,14 @@ sub read_lessons { my ($lessonsfile) = @_;
   my $i = 1;
   open my $input_lessons_fh, '<', $lessonsfile;
   while (<$input_lessons_fh>) {
-    if (/^\s*$/ || /^;/) { next }
+    if (/^\s*$/ || /^\h*;/) { next }
     elsif (/^(\$\p{ID_Start}\p{ID_Continue}*)\h*=\h*(.*)\h*$/) {
       # say "\e[90msetting\e[m $1 \e[90mto the value of\e[m $2"
       my ($name, $val) = ($1, $2);
       if (exists $defs{$name}) { warn "Redefining $name at line $.\n" }
       $defs{$name} = eval_expr $val, \%defs;
     }
-    elsif (/^ ([0-9]+) \h*>\h* (.*?) \h*>\h* (.*?) \h*$/x) {
+    elsif (/^ \h* ([0-9]+) \h*>\h* (.*?) \h*>\h* (.*?) \h*$/x) {
       # say "lesson $1 has the value of $2 and the title of $3"
       my ($num, $val, $title) = ($1, $2, $3);
       if ($num != $i) {
