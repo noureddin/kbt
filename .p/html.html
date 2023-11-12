@@ -10,7 +10,7 @@
     <div id="header">
       <span>
         <label for="lesson">${lesson}:&ensp;</label>
-        <select id="lesson" onchange="play(this.value)"><<lessons>></select>
+        <select id="lesson" onchange="location.hash=this.value"><<lessons>></select>
       </span>
       <span>
         <span id="emus"><input type="checkbox" id="emu" title="${emulate_tip}" checked><label for="emu" title="${emulate_tip}">&ensp;${emulate}</label></span>

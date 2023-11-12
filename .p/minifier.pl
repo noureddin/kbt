@@ -7,8 +7,7 @@ die "must provide an argument: js, css, or html\n"
 
 my @files = @ARGV[1..$#ARGV];
 
-# NOTE: exactly three passes give the smallest size; more would inline play() but keep its definition so it'd give larger results
-exec qw[ deno run --quiet --allow-read npm:uglify-js --compress top_retain=[play],passes=3 --mangle toplevel,reserved=[play] ], @files
+exec qw[ deno run --quiet --allow-read npm:uglify-js --compress toplevel,passes=4 --mangle toplevel ], @files
   if $ARGV[0] eq 'js';
 
 exec qw[ deno run --quiet --allow-read npm:clean-css-cli ], @files

@@ -210,7 +210,6 @@ function finish_msg(sec, len, wrong_chars, lesson) {
 function play (lesson) {
   if (!lesson || lesson < 1) { lesson = 1 }
   if (lesson >= LETTERS.length) { lesson = LETTERS.length }
-  location.hash = lesson
   el_lesson.value = lesson
   set_words(lesson)
   unmark(el_body, 'finish')
@@ -370,12 +369,10 @@ onload = () => {
 }
 
 // Hash parameters `https://.../#4` is the one used everywhere, including in links.
-// Search parameters `https://.../?4` exist for the Robustness principle.
-// But links with search parameters should never be used anywhere, because they are
-// considered completely different links by others, including search engines,
-// so they are misleading.
-// Always on play(), the hash is updated, and the search is removed if found.
-
-// NOTE: `location.hash = lesson` is needed both in onload() and in play():
-// - in onload() because of the reloading on changing location.search.
-// - in play() because it can be called when changing the el_lesson selection.
+// Search parameters `https://.../?4` exist only for the Robustness principle.
+// And links with search parameters are never used anywhere,
+//   because they are considered completely different links by others,
+//   including search engines, so they are misleading.
+// Always the search is changed to a hash if found and a hash isn't found,
+//   and the hash is updated when the lesson is changed,
+//   and the lesson is changed when the hash is updated.
