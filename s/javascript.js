@@ -191,7 +191,8 @@ function next_word (cur) {
 }
 
 const lesson_link = (n) =>
-  '<a href="?' + n + '">' + lessons_ordinal[+n - 1] + '</a>'
+  '<a href="#' + n + '" onclick="' + play.name + '(' + n + ')">' + lessons_ordinal[+n - 1] + '</a>'
+  // play.name not the string "play" b/c minification can change names
 
 function finish_msg(sec, len, wrong_chars, lesson) {
   const cpm = len * 60 / sec
@@ -210,7 +211,6 @@ function play (lesson) {
   if (!lesson || lesson < 1) { lesson = 1 }
   if (lesson >= LETTERS.length) { lesson = LETTERS.length }
   location.hash = lesson
-  location.search = ''
   el_lesson.value = lesson
   set_words(lesson)
   unmark(el_body, 'finish')
@@ -358,10 +358,24 @@ onresize = () => {
 }
 
 onload = () => {
-  el_write.value = ''
-  play(+location.hash.slice(1) || +location.search.slice(1) || 1)
+  const lesson = +location.hash.slice(1) || +location.search.slice(1) || 1
+  if (location.search) {
+    location.hash = lesson
+    location.search = ''
+  }
+  else {
+    onhashchange = onload
+    play(lesson)
+  }
 }
 
-// Search parameter `https://.../?4` is more convenient, e.g., to force reload the page.
-// Hash parameter `https://.../#4` is the primarily supported. And if both exist, hash takes
-// precedence. Always on play(), the hash is updated, and the search is removed if found.
+// Hash parameters `https://.../#4` is the one used everywhere, including in links.
+// Search parameters `https://.../?4` exist for the Robustness principle.
+// But links with search parameters should never be used anywhere, because they are
+// considered completely different links by others, including search engines,
+// so they are misleading.
+// Always on play(), the hash is updated, and the search is removed if found.
+
+// NOTE: `location.hash = lesson` is needed both in onload() and in play():
+// - in onload() because of the reloading on changing location.search.
+// - in play() because it can be called when changing the el_lesson selection.

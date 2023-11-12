@@ -52,7 +52,7 @@ say pipeline
 for my $ar (@ar) {
   my $title = read_name($ar).' — مدرب لوحات المفاتيح';
   say "$ar: $ar/index.html";
-  say "$ar/index.html: .p/* $ar/.?? $ar/.mapping.min.js s/ar-words.js s/ar.min.js s/style.min.css";
+  say "$ar/index.html: .p/* $ar/.?? $ar/.mapping.min.js s/ar-words.js s/ar.min.js s/style.min.css .p/html-minify.pl";
   say pipeline
     ['' => ".p/html.html"],
     ['applyini' => ".p/arabic.ini", "keyboard=$ar", "title='$title'"],
@@ -67,7 +67,7 @@ for my $ar (@ar) {
 for my $en (@en) {
   my $title = read_name($en).' — Keyboard Trainer';
   say "$en: $en/index.html";
-  say "$en/index.html: .p/* $en/.?? $en/.mapping.min.js s/en-words.js s/en.min.js s/ltr-style.min.css";
+  say "$en/index.html: .p/* $en/.?? $en/.mapping.min.js s/en-words.js s/en.min.js s/ltr-style.min.css .p/html-minify.pl";
   say pipeline
     ['' => ".p/html.html"],
     ['applyini' => ".p/english.ini", "keyboard=$en", "title='$title'"],
@@ -79,23 +79,23 @@ for my $en (@en) {
       "$en/index.html";
 }
 
-say q{index.html: .p/home.html .p/mkhome.pl s/main-style.min.css */.info};
+say 'index.html: .p/home.html .p/mkhome.pl s/main-style.min.css */.info .p/html-minify.pl';
 say pipeline
   ['mkhome' => '.p/home.html'],
   ['hash-for-cache' => '.'],
   ['minifier' => 'html'],
     'index.html';
 
-say q{s/ltr-style.css: s/style.css};
+say 's/ltr-style.css: s/style.css';
 say pipeline [flipdirection => 's/style.css'], 's/ltr-style.css';
 
-say q{s/%.min.css: s/%.css};
+say 's/%.min.css: s/%.css .p/minifier.pl';
 say pipeline [minifier => 'css', '"$<"'], '"$@"';
 
-say q{%/.mapping.min.js: %/.mapping.js};
+say '%/.mapping.min.js: %/.mapping.js .p/minifier.pl';
 say pipeline [minifier => 'js', '"$<"'], '"$@"';
 
-say q{s/%.min.js: s/%[^.]?*.js s/javascript.js};
+say 's/%.min.js: s/%[^.]?*.js s/javascript.js .p/minifier.pl';
 say pipeline
   ['' => '"$<"', 's/javascript.js'],  # concatenate lang-specific js with the common one
   ['minifier' => 'js'],
