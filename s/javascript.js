@@ -95,7 +95,7 @@ let el_current
 function set_words(lesson) {
   el_screen.innerHTML =
     words_for_lesson(lesson)
-    .map(e => `<span style="display: inline-block; width: ${0.75*e.length}em">${e}</span>`)
+    .map(e => `<span style="display: inline-block; width: ${0.75*strip(e).length}em">${e}</span>`)
     .join(' ')
   const limit = limit_for_lesson(lesson)
   set_completed(0, limit)

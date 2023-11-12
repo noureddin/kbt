@@ -1,3 +1,5 @@
+const strip = (w) => w
+
 const WORDS = []  // not used; everything is FULL_WORDS
 
 const want_full_words = (letters) => true

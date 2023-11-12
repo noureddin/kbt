@@ -1,5 +1,7 @@
+const strip = (w) => w.replace(/[ًٌٍَُِّْ]/g,'')  // remove vowel marks
+
 const WORDS = FULL_WORDS
-    .map(w => w.replace(/[ًٌٍَُِّْ]/g,''))  // remove vowel marks
+    .map(strip)
     .filter((e, i, a) => e !== a[i-1])  // uniq
 
 const want_full_words = (letters) => letters.match(/[ًٌٍَُِّْ]/)
