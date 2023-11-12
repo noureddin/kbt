@@ -18,12 +18,12 @@ const BAD_RIGHT_SHIFT_ALERT = 'استخدم زر العالي الأيسر مع 
 // const round_int = (e,p) => p? Math.round(e * 10**p) / 10**p : Math.round(e)
 const round_int = (e) => Math.round(e)
 
-const format_int = (n) => n.toString()
-    .replace(/0/g,'٠').replace(/1/g,'١').replace(/2/g,'٢').replace(/3/g,'٣').replace(/4/g,'٤')
-    .replace(/5/g,'٥').replace(/6/g,'٦').replace(/7/g,'٧').replace(/8/g,'٨').replace(/9/g,'٩')
-const parse_int = (n) => +n
-    .replace(/٠/g,'0').replace(/١/g,'1').replace(/٢/g,'2').replace(/٣/g,'3').replace(/٤/g,'4')
-    .replace(/٥/g,'5').replace(/٦/g,'6').replace(/٧/g,'7').replace(/٨/g,'8').replace(/٩/g,'9')
+const format_int = (n) => [...n.toString()]
+    .map(c => /* c < '0' || c > '9' ? c : */ String.fromCharCode(c.charCodeAt(0) + 0x630)).join('')
+const parse_int = (n) => +[...n]
+    .map(c => /* c < '٠' || c > '٩' ? c : */ String.fromCharCode(c.charCodeAt(0) - 0x630)).join('')
+// both are only used with numbers, so the check is removed to reduce space
+
 const format_plural_for_letters = (n) => format_int(n) + ' ' + (
     n === 2 ? 'حرفين' :
     n % 100 > 2 && n % 100 < 11 ? 'أحرف' :
