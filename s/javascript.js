@@ -93,11 +93,12 @@ const el_body = document.body
 let el_current
 
 function set_words(lesson) {
+  const words = words_for_lesson(lesson)
   el_screen.innerHTML =
-    words_for_lesson(lesson)
+    words
     .map(e => `<span style="display: inline-block; width: ${0.75*strip(e).length}em">${e}</span>`)
     .join(' ')
-  const limit = limit_for_lesson(lesson)
+  const limit = Math.min(words.length, limit_for_lesson(lesson))
   set_completed(0, limit)
   el_allwords.innerText = format_int(limit)
 }
