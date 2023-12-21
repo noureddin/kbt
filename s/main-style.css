@@ -82,3 +82,12 @@ li > a:active {
     color: var(--page-bg);
     background: var(--a-active);
 }
+
+header img {
+  display: inline-block;
+  height: 1.3em;
+  width: 1.3em;
+  margin: 0 .05em 0 .1em;
+  vertical-align: -0.4em;
+}
+
