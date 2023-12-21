@@ -1,9 +1,9 @@
 :root {
-    --page-bg: #f3f0f0;
-    --fg: #333;
-    --a: deeppink;
-    --a-focus: hotpink;
-    --a-active: pink;
+  --page-bg: #f3f0f0;
+  --fg: #333;
+  --a: deeppink;
+  --a-focus: hotpink;
+  --a-active: pink;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,16 +17,16 @@
 }
 
 * {
-    font-family: "KacstOne", serif;
-    color: var(--fg);
-    font-size: 24pt;
+  font-family: "KacstOne", serif;
+  color: var(--fg);
+  font-size: 24pt;
 }
 
 body {
-    background: var(--page-bg);
-    --body-width: min(85%, 35rem);
-    width: var(--body-width);
-    margin: auto;  /* center */
+  background: var(--page-bg);
+  --body-width: min(85%, 35rem);
+  width: var(--body-width);
+  margin: auto;  /* center */
 }
 
 a { color: var(--a) }
@@ -34,38 +34,38 @@ a:focus, a:hover { color: var(--a-focus) }
 a:active { color: var(--a-active) }
 
 [lang="ar"] {
-    direction: rtl;
-    text-align: right;
+  direction: rtl;
+  text-align: right;
 }
 
 center > p.note {  /* "English is below" note */
   margin-top: 2em;
 }
 
-p.note {
-    font-size: 65%;
+p.note, p.note * {
+  font-size: 0.65rem;
 }
 
 hr {
-    border-bottom: none;
-    border-left: none;
-    border-right: none;
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
 }
 
 h2 { margin-bottom: -0.5em }
 
 header, section.keyboards {
-    text-align: center;
+  text-align: center;
 }
 
 ul {
-    padding: 0;
+  padding: 0;
 }
 
 li {
-    list-style: none;
-    padding: 0.25em;
-    margin: 0;
+  list-style: none;
+  padding: 0.25em;
+  margin: 0;
 }
 
 li > a {
@@ -75,12 +75,12 @@ li > a {
 }
 li > a:focus,
 li > a:hover {
-    color: var(--page-bg);
-    background: var(--a-focus);
+  color: var(--page-bg);
+  background: var(--a-focus);
 }
 li > a:active {
-    color: var(--page-bg);
-    background: var(--a-active);
+  color: var(--page-bg);
+  background: var(--a-active);
 }
 
 header img {
