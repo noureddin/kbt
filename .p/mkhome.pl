@@ -8,7 +8,7 @@ my %en;
 
 for (glob '*/.info') {
   my $kb = s,/.*,,r;
-  my $ar = 0==system('grep', '-q', 'ب', "$kb/.kb");
+  my $ar = 0==system('grep', '-q', 'ب', "$kb/.mapping.js");
   ($ar ? $ar{$kb} : $en{$kb}) = {};
   open my $f, '<', $_;
   while (<$f>) {

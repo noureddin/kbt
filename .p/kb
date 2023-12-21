@@ -1,0 +1,68 @@
+<!-- <hr id="a"> -->
+<!-- <hr id="z"> -->
+<div id="kBQ"></div><!--backquote-->
+<div id="k1">1</div>
+<div id="k2">2</div>
+<div id="k3">3</div>
+<div id="k4">4</div>
+<div id="k5">5</div>
+<div id="k6">6</div>
+<div id="k7">7</div>
+<div id="k8">8</div>
+<div id="k9">9</div>
+<div id="k0">0</div>
+<div id="kHY"></div><!--hypen-->
+<div id="kEQ"></div><!--equal-->
+<!-- <div id="kBS">Backspace</div><!--backspace-->
+<div id="kBS"><span class="icon">←</span></div><!--backspace-->
+<br>
+<div id="kTB">Tab<span class="icon">⭾</span></div><!--tab-->
+<div id="kQ"></div>
+<div id="kW"></div>
+<div id="kE"></div>
+<div id="kR"></div>
+<div id="kT"></div>
+<div id="kY"></div>
+<div id="kU"></div>
+<div id="kI"></div>
+<div id="kO"></div>
+<div id="kP"></div>
+<div id="kOS"></div><!--open-squarebracket-->
+<div id="kCS"></div><!--close-squarebracket-->
+<div id="kRS">\</div><!--reverse-slash; bs is backspace-->
+<br>
+<div id="kCP">Caps</div><!--capslock-->
+<div id="kA"></div>
+<div id="kS"></div>
+<div id="kD"></div>
+<div id="kF"></div>
+<div id="kG"></div>
+<div id="kH"></div>
+<div id="kJ"></div>
+<div id="kK"></div>
+<div id="kL"></div>
+<div id="kSC"></div><!--semicolon-->
+<div id="kSQ"></div><!--singlequote-->
+<div id="kEN"><span class="icon">⮐</span>Enter</div><!--enter-->
+<br>
+<div id="kSL">Shift<span class="icon">↑</span></div><!--shift-left-->
+<div id="kZ"></div>
+<div id="kX"></div>
+<div id="kC"></div>
+<div id="kV"></div>
+<div id="kB"></div>
+<div id="kN"></div>
+<div id="kM"></div>
+<div id="kCM"></div><!--comma-->
+<div id="kPD"></div><!--period-->
+<div id="kSH"></div><!--slash-->
+<div id="kSR"><span class="icon">↑</span>Shift</div><!--shift-right-->
+<br>
+<div id="kCL">Ctrl</div><!--ctrl-left-->
+<div id="kSU"><span class="icon">■</span></div><!--super-->
+<div id="kAL">Alt</div><!--alt-left-->
+<div id="kSP">&nbsp;</div><!--spacebar-->
+<div id="kAR">Alt</div><!--alt-right-->
+<div id="kCR">Ctrl</div><!--ctrl-right-->
+<br><!-- needed for the spacing between the last two rows -->
+<!-- vim: set ft=html :-->

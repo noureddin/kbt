@@ -103,16 +103,126 @@ function set_words(lesson) {
   el_allwords.innerText = format_int(limit)
 }
 
-let kb = {}
-const _key = (x) =>
-  x === 'BS' ? '\b' :
-  x === 'SPACE' ? ' ' :
-  x.startsWith('&nbsp;') ? x.split(';').pop() :  // vowel marks
-    x[0]
-// first char only to disregard <sup>s and any presentational ZWJ
-Qall('#keyboard > span > *').forEach(e => { kb[_key(e.innerHTML)] = e })
-// Qall('#keyboard > span > *').forEach(e => { say(e.innerHTML) })
-// say(kb)
+const kbm = {
+  Backquote:    Qid('kBQ'),
+  Minus:        Qid('kHY'),
+  Equal:        Qid('kEQ'),
+  BracketLeft:  Qid('kOS'),
+  BracketRight: Qid('kCS'),
+  Semicolon:    Qid('kSC'),
+  Quote:        Qid('kSQ'),
+  Comma:        Qid('kCM'),
+  Period:       Qid('kPD'),
+  Slash:        Qid('kSH'),
+  Backspace:    Qid('kBS'),
+  Tab:          Qid('kTB'),
+  Backslash:    Qid('kRS'),
+  CapsLock:     Qid('kCP'),
+  Enter:        Qid('kEN'),
+  ShiftLeft:    Qid('kSL'),
+  ShiftRight:   Qid('kSR'),
+  ControlLeft:  Qid('kCL'),
+  MetaLeft:     Qid('kSU'),
+  AltLeft:      Qid('kAL'),
+  Space:        Qid('kSP'),
+  AltRight:     Qid('kAR'),
+  ControlRight: Qid('kCR'),
+}
+
+;'0123456789'.split('').map(c => kbm['Digit'+c] = Qid('k'+c) )
+;'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(c => kbm['Key'+c] = Qid('k'+c) )
+
+let kb = { '\b': kbm.Backspace, ' ': kbm.Space }
+
+let skb = {}  // what keys are shifted
+
+for (let t in M) {
+  kb[M[t][0]] = kbm[t]
+  kb[M[t][1]] = kbm[t]
+  skb[M[t][1]] = true
+}
+
+const char_kb = (ch) => kb[ch].querySelector(skb[ch] ? '.shifted' : '.primary')
+
+const left_side = {
+  Backquote: true,
+}
+;('QWERT'
+  +'ASDFG'
+   +'ZXCVB').split('').forEach(c => left_side['Key'+c] = true)
+
+function is_super_mark (char) { return '\u064B\u064C\u064E\u064F\u0651\u0652'.includes(char) }
+function is_sub_mark (char) { return '\u064D\u0650'.includes(char) }
+function html_encode (str) { return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') }
+
+function update_keychar (keyspan, char) {
+  keyspan.innerHTML = is_super || is_sub ? '&nbsp;' : ''
+  keyspan.innerText += char
+  keyspan.classList.toggle('mark', is_super)
+  keyspan.classList.toggle('submark', is_sub)
+}
+
+for (let t in M) {
+  const is_super = is_super_mark(M[t][1])  // marks are only shifted
+  const is_sub = is_sub_mark(M[t][1])
+  const pri = html_encode(M[t][0]) + (M[t][0] === 'ه' ? '\u200d' : '')  // ZWJ
+  const shi = (is_super || is_sub ? '&nbsp;' : '') + html_encode(M[t][1])
+  const scls = 'shifted' + (is_super ? ' mark' : is_sub ? ' submark' : '')
+  kbm[t].dir = document.dir
+  kbm[t].innerHTML = `
+    <span class="balance sup">&nbsp;</span>
+    <span class="${scls}">${shi}</span>
+    <span class="primary">${pri}</span>
+    <span class="balance sub">&nbsp;</span>
+  `.replace(/\s+/g, ' ').replace(/> </g, '><').replace(/\A | \Z/g, '')
+}
+
+function _upd (is_shifted, bla, pri, shi, blz) {
+  bla.hidden = !( blz.hidden = is_shifted )
+  pri.classList.toggle('sub',  is_shifted)
+  pri.classList.toggle('for', !is_shifted)
+  shi.classList.toggle('for',  is_shifted)
+  shi.classList.toggle('sup', !is_shifted)
+}
+
+function update_keys (s) {
+  if (s !== 0 && s !== 1) {
+    throw `update_keys() must be given 0 or 1; given ${s}`
+  }
+  for (let t in M) {
+    let [ primary, shifted ] = M[t]
+    _upd(s === 1,
+      kbm[t].querySelector('.balance.sup'),
+      kbm[t].querySelector('.primary'),
+      kbm[t].querySelector('.shifted'),
+      kbm[t].querySelector('.balance.sub'))
+  }
+}
+
+update_keys(0)
+
+// shift
+window.addEventListener('keydown', (ev) => ev.key === 'Shift' && update_keys(1))
+window.addEventListener('keyup',   (ev) => ev.key === 'Shift' && update_keys(0))
+
+// mark pressed key -- all the following is to handle holding, modifiers, and chords.
+window.addEventListener('keydown', (ev) => {
+  kbm[ev.code].classList.add('pressed')
+})
+window.addEventListener('keyup', (ev) => {
+  kbm[ev.code].classList.remove('pressed')
+})
+window.addEventListener('blur', (ev) => {
+  for (let t in kbm) {
+    kbm[t].classList.remove('pressed')
+  }
+})
+
+;(LETTERS[LETTERS.length-1] + ' \b').split('').forEach(ch => {
+  kb[ch].classList.add('ok')
+  const charspan = char_kb(ch)
+  charspan && charspan.classList.add('ok')
+})
 
 // // equiv to want.startsWith(got), but allows swapping two consecutive vowel marks
 // // (a Shadda and any other vowels except sukun)
@@ -157,17 +267,28 @@ function get_next_key() {
   )
 }
 
+const hilite = (el) => el.classList.add('needed')
+const hilite_shift = (keycode) => {
+  const k = left_side[keycode] ? Qid('kSR') : Qid('kSL')
+  hilite(k)
+  hilite(k.querySelector('*'))
+}
+
 const highlighter = (function () {
   let id
   return {
     end: function () { clearInterval(id) },
     start: function () {
       clearInterval(id)
-      eradicate_class('hihi')
+      eradicate_class('needed')
       const ch = get_next_key()
-      const e = kb[ch]
-      if (e) {
-        const hili = () => e.classList.add('hihi')
+      const k = kb[ch]
+      if (k) {
+        const hili
+          = ch === ' '  ? () => { hilite(k) }
+          : ch === '\b' ? () => { hilite(k); hilite(k.querySelector('span')) }
+          : !skb[ch]    ? () => { hilite(k); hilite(k.querySelector('.primary')) }
+          :               () => { hilite(k); hilite(k.querySelector('.shifted')); hilite_shift(k.id.replace(/k/, 'Key')) }
         ch === '\b' ? hili() : id = setInterval(hili, 5000)  // 5 sec
       }
     },
@@ -214,8 +335,8 @@ function play (lesson) {
   el_lesson.value = lesson
   set_words(lesson)
   unmark(el_body, 'finish')
-  eradicate_class('hi')
-  letters_for_lesson(lesson).split('').forEach(c => kb[c].classList.add('hi'))
+  eradicate_class('current')
+  letters_for_lesson(lesson).split('').forEach(c => { kb[c].classList.add('current'); char_kb(c).classList.add('current') })
   set_current(Q('#screen > :first-child'))
   el_write.value = ''
   el_write.focus()
@@ -310,13 +431,6 @@ function insert_in_field (el, ch) {
   // restore cursor position
   el.selectionStart = el.selectionEnd = st + ch.length
 }
-
-const left_side = {
-  Backquote: true,
-}
-;('QWERT'
-  +'ASDFG'
-   +'ZXCVB').split('').forEach(c => left_side['Key'+c] = true)
 
 let prev_shift
 

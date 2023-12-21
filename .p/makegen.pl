@@ -2,11 +2,11 @@
 use v5.14; use warnings; use autodie; use utf8;
 use open qw[ :encoding(UTF-8) :std ];
 
-# grep dirs that has both .kb & .ls
-my @all = map { -e s,..$,ls,r ? s,.{4}$,,r : () } glob '*/.kb';
+# grep dirs that has both .mapping.js & .ls
+my @all = map { -e s,/.*$,/.ls,r ? s,/.*,,r : () } glob '*/.mapping.js';
 
-my @ar = grep { 0==system('grep', '-q', 'ب', "$_/.kb") } @all;
-my @en = grep { 0!=system('grep', '-q', 'ب', "$_/.kb") } @all;
+my @ar = grep { 0==system('grep', '-q', 'ب', "$_/.mapping.js") } @all;
+my @en = grep { 0!=system('grep', '-q', 'ب', "$_/.mapping.js") } @all;
 
 say "all: Makefile index.html @all";
 say '';
@@ -57,8 +57,8 @@ for my $ar (@ar) {
     ['' => ".p/html.html"],
     ['applyini' => ".p/arabic.ini", "keyboard=$ar", "title='$title'"],
     ['hash-for-cache' => $ar],
+    ['mkkb'],
     ['minifier' => 'html'],
-    ['mkkeyboard' => "$ar/.kb"],
     ['mklessons' => "$ar/.ls"],
     ['mapping' => $ar],
       "$ar/index.html";
@@ -72,8 +72,8 @@ for my $en (@en) {
     ['' => ".p/html.html"],
     ['applyini' => ".p/english.ini", "keyboard=$en", "title='$title'"],
     ['hash-for-cache' => $en],
+    ['mkkb'],
     ['minifier' => 'html'],
-    ['mkkeyboard' => "$en/.kb"],
     ['mklessons' => "$en/.ls"],
     ['mapping' => $en],
       "$en/index.html";
@@ -98,7 +98,7 @@ say pipeline [minifier => 'js', '"$<"'], '"$@"';
 say 's/%.min.js: s/%[^.]?*.js s/javascript.js .p/minifier.pl';
 say pipeline
   ['' => '"$<"', 's/javascript.js'],  # concatenate lang-specific js with the common one
-  ['minifier' => 'js'],
+  # ['minifier' => 'js'],
     '"$@"';
 
 say 's/ar-words.js: .w/voweled-imlaai-quran-words';

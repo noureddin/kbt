@@ -12,11 +12,9 @@
     --fg-wrong: crimson;
     --bg-wrong: plum;
     --fg-hi: #0a0;  /* current-lesson base-letters */
-    --fg-hi-sup: #0a0;  /* current-lesson shifted-letters */
     --fg-lo: #aaa;  /* not-in-current-lesson base-letters (incl. BS & SPC) */
-    --fg-lo-sup: #aaa;  /* not-in-current shifted-letters */
     --fg-hi-hi: deeppink;  /* highlighted (hint) base-letter */
-    --fg-hi-hi-sup: deeppink;  /* hinted shifted-letter */
+    --pressed: #ff0;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,11 +32,9 @@
     --fg-wrong: deeppink;
     --bg-wrong: darkmagenta;
     --fg-hi: #cc6;  /* current-lesson base-letters */
-    --fg-hi-sup: #cc6;  /* current-lesson shifted-letters */
     --fg-lo: #555;  /* not-in-current-lesson base-letters (incl. BS & SPC) */
-    --fg-lo-sup: #666;  /* not-in-current shifted-letters */
     --fg-hi-hi: #d6d;  /* highlighted (hint) base-letter */
-    --fg-hi-hi-sup: #d6d;  /* hinted shifted-letter */
+    --pressed: #080;
   }
   #screen, #screen * { font-weight: bold }
 }
@@ -61,7 +57,7 @@
 
 sup { line-height: 4 }
 
-:not(#screen, #screen *) { /*  ¯\_(ツ)_/¯ — to make .current-word work */
+:not(#screen, #screen *, #kb, #kb *) { /*  ¯\_(ツ)_/¯ — to make .current-word work; #kb is defined below */
     color: var(--fg);
 }
 
@@ -226,38 +222,130 @@ a:active { color: var(--a-active) }
   content: '‍​‍';  /* a kludge: zero width (space + joiner + space) */
 }
 
-#keyboard {
-    line-height: 2;
+/* new keyboard; macro layout */
+
+#kb {
+  --unit: 0.3rem;
+  --margin: calc(var(--unit) / 2.5);
+  --width:  calc(var(--unit) *88);
+  --key:    calc(var(--unit) * 5.5);
+  --BQ:     calc(var(--unit) * 4);
+  --TB:     calc(var(--unit) * 6);
+  --CP:     calc(var(--unit) * 8);
+  --SL:     calc(var(--unit) *13);
+  --CR:     calc(var(--unit) * 8);
+  margin-top: var(--key);
 }
 
-#keyboard > span {
-    position: relative;
+#kb > div {
+  display: inline-block;
+  border-radius: 0.3rem;
+  border: 1px solid;
+  box-sizing: border-box;
+  padding: 0;
+  height: 1.8rem;
+  line-height: 1.8rem;
+  width: var(--key);
+  margin: var(--margin);
+  vertical-align: middle;
+}
+#kb > br { margin-top: var(--margin) }
+
+#kBQ, #kTB, #kCP, #kSL, #kCR, #kSU, #kAR, #kAL, #kCL, #kBS, #kRS, #kEN, #kSR, #kSP {
+  font-size: 0.50rem;
 }
 
-#keyboard > span > sup {
-    font-size: 75%;
-    /* position: relative; */
-    /* top: -0.75em; /1* for span *1/ */
-    /* top: -0.25em; /1* for sup *1/ */
-    position: absolute;
-    top: -1em;
+/* constant-width keys */
+#kb > #kBQ { width: var(--BQ) }
+#kb > #kTB { width: var(--TB) }
+#kb > #kCP { width: var(--CP) }
+#kb > #kSL { width: var(--SL) }
+#kb > #kCR, #kb > #kSU, #kb > #kAR, #kb > #kAL, #kb > #kCL { width: var(--CR) }
+
+/* variable-width keys */
+#kb > #kBS { width: calc(var(--width) - var(--BQ) - 12*(var(--key) + 2*var(--margin)) - 2*var(--margin)) }
+#kb > #kRS { width: calc(var(--width) - var(--TB) - 12*(var(--key) + 2*var(--margin)) - 2*var(--margin)) }
+#kb > #kEN { width: calc(var(--width) - var(--CP) - 11*(var(--key) + 2*var(--margin)) - 2*var(--margin)) }
+#kb > #kSR { width: calc(var(--width) - var(--SL) - 10*(var(--key) + 2*var(--margin)) - 2*var(--margin)) }
+#kb > #kSP { width: calc(var(--width) - 5*var(--CR) - 10*var(--margin)) }
+
+/* new keyboard; icons spacing */
+
+#kb .icon {
+  font-size: 0.65rem;
+  padding: 0 0.15em;
 }
 
-#keyboard > span > sup.marks {
-    font-size: 125%;
-    right: 0.15em;
+#kSU .icon, #kBS .icon { padding: 0 }
+
+#kBS .icon {
+  font-size: 1.5rem;
+  top: -0.65rem;
 }
 
-#keyboard > span > sup.submarks {
-    font-size: 125%;
-    right: 0.15em;
-    top: -1.25em;
+#kSL[dir="ltr"] .icon, #kTB[dir="ltr"] .icon { padding-left: 0 }
+#kSL[dir="rtl"] .icon, #kTB[dir="rtl"] .icon { padding-right: 0 }
+
+/* new keyboard; sup & sub keys */
+
+#kb > div, #kb > div > * { position: relative }
+
+#kb .sub {
+  font-size: 0.65rem;
+  top: 0.2rem;
 }
 
-#keyboard > span > span      { color: var(--fg-lo) }
-#keyboard > span > span.hi   { color: var(--fg-hi) }
-#keyboard > span > span.hihi { color: var(--fg-hi-hi) }
+#kb .sup {
+  font-size: 0.65rem;
+  vertical-align: top;
+  top: -0.2rem;
+}
 
-#keyboard > span > sup      { color: var(--fg-lo-sup) !important }
-#keyboard > span > sup.hi   { color: var(--fg-hi-sup) !important }
-#keyboard > span > sup.hihi { color: var(--fg-hi-hi-sup) !important }
+#kb .for {
+  top: -0.05em;
+}
+
+html[dir="rtl"] #kb .sup.mark  {
+  font-size: 1rem;
+  /* top: -1.4rem; */
+  right: 0.2rem;
+}
+html[dir="rtl"] #kb .for.mark {
+  font-size: 1.5rem;
+  line-height: 0;
+  right: -0.2rem;
+  top: 0.25rem;
+}
+html[dir="rtl"] #kb .mark ~ .sub {
+  right: -0.3rem;
+}
+
+html[dir="rtl"] #kb .sup.submark {
+  top: 0.25rem;
+}
+html[dir="rtl"] #kb .for.submark {
+  font-size: 1.5rem;
+  line-height: 0;
+  right: -0.4rem;
+  top: -0.25rem;
+}
+html[dir="rtl"] #kb .submark ~ .sub {
+  right: -0.3rem;
+}
+
+#kBQ .sub { right: -0.2rem; top: 0.4rem }
+#kBQ .mark ~ .sub { right: -0.6rem !important }  /* IBM */
+
+/* new keyboard; colors */
+
+#kb > div { color: var(--fg-lo); opacity: 50% }
+#kb > div > * { color: var(--fg-lo) }
+#kb > div.ok { opacity: 100% }
+#kb > div.ok > :not(.ok) { opacity: 50% }
+#kb > div.ok > :not(.ok).for { opacity: 35% }
+#kb > div > .ok { color: var(--fg-lo) }
+#kb > div.pressed { background: var(--pressed) }
+#kb > div.current, #kb > div > .current { color: var(--fg-hi) }
+#kb > div.needed,  #kb > div > .needed  { color: var(--fg-hi-hi) }
+#kb > div.needed { border-width: 0.1rem }
+
